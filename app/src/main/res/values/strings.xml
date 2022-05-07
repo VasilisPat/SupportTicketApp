@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">SupportTicketApp</string>
+    <string name="app_name">Support Ticket App</string>
+    <string name="app_version">v1.0</string>
+    <string name="button_new_text">New Ticket</string>
+    <string name="button_view_text">View Archive</string>
 </resources>

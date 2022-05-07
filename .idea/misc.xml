@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.136" />
+        <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.136" />
+        <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/drawable/image_shadow.xml" value="0.136" />
+        <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/drawable/myrect.xml" value="0.136" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/activity_new_ticket.xml" value="0.27447916666666666" />
       </map>

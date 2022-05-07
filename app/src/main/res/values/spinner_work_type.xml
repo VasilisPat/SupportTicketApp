@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_work">
+        <item>Select Type</item>
+        <item>Check</item>
+        <item>Repair</item>
+        <item>Service</item>
+        <item>Warranty</item>
+        <item>Installation</item>
+    </string-array>
+</resources>

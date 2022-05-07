@@ -1,6 +1,35 @@
 <resources>
     <string name="app_name">Support Ticket App</string>
     <string name="app_version">v1.0</string>
+    <string name="app_info">© 2022 Patelis - Ploumpis</string>
+
+    <!-- Description -->
+    <string name="description_imageView_support_ticket_logo">Support Ticket Logo</string>
+    <string name="description_imageView_new_ticket_icon">New Ticket Icon</string>
+    <string name="description_spinner_content">Select Work Type</string>
+
+    <!-- Buttons -->
     <string name="button_new_text">New Ticket</string>
     <string name="button_view_text">View Archive</string>
+
+    <!-- Labels for TextView -->
+    <string name="label_technician"><u>Technician</u></string>
+    <string name="label_id">ID:</string>
+    <string name="label_name">Name:</string>
+    <string name="label_client"><u>Client</u></string>
+    <string name="label_address">Address:</string>
+    <string name="label_phone">Phone:</string>
+    <string name="label_email">Email:</string>
+    <string name="label_work"><u>Work</u></string>
+    <string name="label_date">Date:</string>
+    <string name="label_type">Type:</string>
+    <string name="label_description">Descrption:</string>
+
+    <!-- Hints for EditText-->
+    <string name="hint_technician_id">Technician\'s ID</string>
+    <string name="hint_technician_name">Technician\'s Name</string>
+    <string name="hint_client_name">Client\'s Name</string>
+    <string name="hint_client_address">Client\'s Address</string>
+    <string name="hint_client_phone">Client\'s Phone Number</string>
+    <string name="hint_client_email">Client\'s Email</string>
 </resources>

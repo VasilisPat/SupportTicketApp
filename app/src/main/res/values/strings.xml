@@ -9,21 +9,24 @@
     <string name="description_spinner_content">Select Work Type</string>
 
     <!-- Buttons -->
-    <string name="button_new_text">New Ticket</string>
-    <string name="button_view_text">View Archive</string>
+    <string name="button_new_ticket">New Ticket</string>
+    <string name="button_view_tickets">View Archive</string>
+    <string name="button_cancel_ticket">Cancel</string>
+    <string name="button_save_ticket">Save</string>
 
     <!-- Labels for TextView -->
     <string name="label_technician"><u>Technician</u></string>
-    <string name="label_id">ID:</string>
-    <string name="label_name">Name:</string>
+    <string name="label_technician_id">ID:</string>
+    <string name="label_technician_name">Name:</string>
     <string name="label_client"><u>Client</u></string>
-    <string name="label_address">Address:</string>
-    <string name="label_phone">Phone:</string>
-    <string name="label_email">Email:</string>
-    <string name="label_work"><u>Work</u></string>
-    <string name="label_date">Date:</string>
-    <string name="label_type">Type:</string>
-    <string name="label_description">Descrption:</string>
+    <string name="label_client_address">Address:</string>
+    <string name="label_client_phone">Phone:</string>
+    <string name="label_client_email">Email:</string>
+    <string name="label_labor"><u>Labor</u></string>
+    <string name="label_labor_date">Date:</string>
+    <string name="label_labor_type">Type:</string>
+    <string name="label_labor_hours">Hours:</string>
+    <string name="label_labor_description">Description:</string>
 
     <!-- Hints for EditText-->
     <string name="hint_technician_id">Technician\'s ID</string>
@@ -32,4 +35,6 @@
     <string name="hint_client_address">Client\'s Address</string>
     <string name="hint_client_phone">Client\'s Phone Number</string>
     <string name="hint_client_email">Client\'s Email</string>
+    <string name="hint_labor_hours">Example: 2.5</string>
+    <string name="hint_labor_description">Describe the work performed</string>
 </resources>

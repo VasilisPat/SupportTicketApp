@@ -13,36 +13,36 @@
         android:layout_marginTop="124dp"
         android:layout_marginBottom="24dp"
         android:contentDescription="@string/description_imageView_support_ticket_logo"
-        app:layout_constraintBottom_toTopOf="@+id/button_new"
+        app:layout_constraintBottom_toTopOf="@+id/button_new_ticket"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ticket_186px" />
 
     <Button
-        android:id="@+id/button_new"
+        android:id="@+id/button_new_ticket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginBottom="6dp"
-        android:text="@string/button_new_text"
-        app:layout_constraintBottom_toTopOf="@+id/button_view"
+        android:text="@string/button_new_ticket"
+        app:layout_constraintBottom_toTopOf="@+id/button_view_tickets"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_support_ticket_logo"
         tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/button_view"
+        android:id="@+id/button_view_tickets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="256dp"
-        android:text="@string/button_view_text"
+        android:text="@string/button_view_tickets"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_new"
+        app:layout_constraintTop_toBottomOf="@+id/button_new_ticket"
         tools:ignore="TextContrastCheck" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_view" />
+        app:layout_constraintTop_toBottomOf="@+id/button_view_tickets" />
 
     <TextView
         android:id="@+id/textView_app_version"
@@ -66,13 +66,13 @@
         android:text="@string/app_version"
         android:textColor="@color/blue_gray_800"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView_info"
+        app:layout_constraintBottom_toTopOf="@+id/textView_app_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_app_name" />
 
     <TextView
-        android:id="@+id/textView_info"
+        android:id="@+id/textView_app_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="126dp"

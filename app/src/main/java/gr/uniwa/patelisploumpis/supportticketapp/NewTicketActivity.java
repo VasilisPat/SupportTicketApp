@@ -6,16 +6,22 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class NewTicketActivity extends AppCompatActivity {
 
     private Button cancelButton, saveButton;
+    private Editable technicianID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
+            laborHours, laborDescription;
+    private EditText technicianIDEditText, technicianNameEditText, clientNameEditText, clientAddressEditText,
+            clientPhoneEditText, clientEmailEditText, laborDateEditText, laborHoursEditText, laborDescriptionEditText;
     private Spinner laborTypeSpinner;
     private String laborType;
 
@@ -25,9 +31,18 @@ public class NewTicketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ticket);
 
+        technicianIDEditText = findViewById(R.id.editTextNumber_technician_id);
+        technicianNameEditText = findViewById(R.id.editTextText_technician_name);
+        clientNameEditText = findViewById(R.id.editTextText_client_name);
+        clientAddressEditText = findViewById(R.id.editText_client_address);
+        clientPhoneEditText = findViewById(R.id.editTextPhone_client_phone);
+        clientEmailEditText = findViewById(R.id.editTextEmail_client_email);
+        laborDateEditText = findViewById(R.id.editTextDate_labor_date);
+        laborTypeSpinner = (Spinner) findViewById(R.id.spinner_labor_type);
+        laborHoursEditText = findViewById(R.id.editTextNumberDecimal_labor_hours);
+        laborDescriptionEditText = findViewById(R.id.editTextMultiLine_labor_description);
         cancelButton = findViewById(R.id.button_cancel_ticket);
         saveButton = findViewById(R.id.button_save_ticket);
-        laborTypeSpinner = (Spinner) findViewById(R.id.spinner_labor_type);
 
         //Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
@@ -51,8 +66,16 @@ public class NewTicketActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i("INFO", "Save ticket button onClick method called");
-                //TODO 2.1 Get text from all edit views
-                //TODO 2.2 Toast message success/fail
+                technicianID = technicianIDEditText.getText();
+                technicianName = technicianNameEditText.getText();
+                clientName= clientNameEditText.getText();
+                clientAddress= clientAddressEditText.getText();
+                clientPhone= clientPhoneEditText.getText();
+                clientEmail = clientEmailEditText.getText();
+                laborDate= laborDateEditText.getText();
+                laborHours = laborHoursEditText.getText();
+                laborDescription= laborDescriptionEditText.getText();
+                //TODO 2.1 Toast message success/fail
                 Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
                 startActivity(intent);
             }

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -81,6 +80,8 @@ public class NewTicketActivity extends AppCompatActivity {
                         laborDate, laborType,laborDescription);
 
                 //TODO 1.1 PDF Creator Class or Method
+                //TODO 1.2 DB Save
+                //TODO 1.3 Email to all
                 //TODO 2.1 Toast message success/fail
 
                 Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);

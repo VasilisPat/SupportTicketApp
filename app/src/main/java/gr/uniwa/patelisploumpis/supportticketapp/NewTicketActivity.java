@@ -18,12 +18,13 @@ import android.widget.Spinner;
 public class NewTicketActivity extends AppCompatActivity {
 
     private Button cancelButton, saveButton;
-    private Editable technicianID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
-            laborHours, laborDescription;
     private EditText technicianIDEditText, technicianNameEditText, clientNameEditText, clientAddressEditText,
             clientPhoneEditText, clientEmailEditText, laborDateEditText, laborHoursEditText, laborDescriptionEditText;
+    private int laborHours;
     private Spinner laborTypeSpinner;
-    private String laborType;
+    private String technicianID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
+            laborType, laborDescription;
+    private SupportTicket ticket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +67,22 @@ public class NewTicketActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i("INFO", "Save ticket button onClick method called");
-                technicianID = technicianIDEditText.getText();
-                technicianName = technicianNameEditText.getText();
-                clientName= clientNameEditText.getText();
-                clientAddress= clientAddressEditText.getText();
-                clientPhone= clientPhoneEditText.getText();
-                clientEmail = clientEmailEditText.getText();
-                laborDate= laborDateEditText.getText();
-                laborHours = laborHoursEditText.getText();
-                laborDescription= laborDescriptionEditText.getText();
+                technicianID = technicianIDEditText.getText().toString();
+                technicianName = technicianNameEditText.getText().toString();
+                clientName= clientNameEditText.getText().toString();
+                clientAddress= clientAddressEditText.getText().toString();
+                clientPhone= clientPhoneEditText.getText().toString();
+                clientEmail = clientEmailEditText.getText().toString();
+                laborDate= laborDateEditText.getText().toString();
+                laborHours = Integer.parseInt(laborHoursEditText.getText().toString());
+                laborDescription= laborDescriptionEditText.getText().toString();
+
+                ticket = new SupportTicket(laborHours, technicianID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
+                        laborDate, laborType,laborDescription);
+
+                //TODO 1.1 PDF Creator Class or Method
                 //TODO 2.1 Toast message success/fail
+
                 Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
                 startActivity(intent);
             }

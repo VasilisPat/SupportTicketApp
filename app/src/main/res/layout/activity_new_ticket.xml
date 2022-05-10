@@ -32,7 +32,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="2dp"
                 android:contentDescription="@string/description_imageView_new_ticket_icon"
-                app:layout_constraintBottom_toTopOf="@+id/editTextNumber_technician_id"
+                app:layout_constraintBottom_toTopOf="@+id/editTextNumber_ticket_id"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView_label_technician"
                 app:layout_constraintTop_toTopOf="parent"
@@ -52,17 +52,17 @@
                 android:textColor="@color/blue_gray_800"
                 android:textSize="34sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/editTextNumber_technician_id"
+                app:layout_constraintBottom_toTopOf="@+id/editTextNumber_ticket_id"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView_label_technician_id"
+                android:id="@+id/textView_label_ticket_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="28dp"
-                android:text="@string/label_technician_id"
+                android:text="@string/label_ticket_id"
                 android:textColor="@color/blue_gray_800"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -80,42 +80,41 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_label_technician_id" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_label_ticket_id" />
 
             <EditText
-                android:id="@+id/editTextNumber_technician_id"
+                android:id="@+id/editTextNumber_ticket_id"
                 android:layout_width="256dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="69dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
                 android:ems="10"
-                android:hint="@string/hint_technician_id"
+                android:enabled="false"
+                android:hint="@string/hint_ticket_id"
                 android:importantForAutofill="no"
                 android:inputType="number"
-                android:textColorHint="@color/hint_gray"
-                app:layout_constraintBottom_toTopOf="@+id/editTextText_technician_name"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/spinner_technician_name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView_label_technician_id"
+                app:layout_constraintStart_toEndOf="@+id/textView_label_ticket_id"
                 app:layout_constraintTop_toBottomOf="@+id/textView_label_technician"
                 tools:ignore="TouchTargetSizeCheck" />
 
-            <EditText
-                android:id="@+id/editTextText_technician_name"
+            <Spinner
+                android:id="@+id/spinner_technician_name"
                 android:layout_width="256dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="27dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="41dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:autofillHints="name"
+                android:contentDescription="@string/description_spinner_ticket_id_content"
                 android:ems="10"
-                android:hint="@string/hint_technician_name"
-                android:inputType="textCapWords"
-                android:textColorHint="@color/hint_gray"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView_label_technician_name"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumber_technician_id"
+                app:layout_constraintTop_toBottomOf="@+id/editTextNumber_ticket_id"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <!-- Client -->
@@ -134,7 +133,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextText_technician_name" />
+                app:layout_constraintTop_toBottomOf="@+id/spinner_technician_name" />
 
             <TextView
                 android:id="@+id/textView_label_client_name"
@@ -333,10 +332,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView_label_labor_date"
-                app:layout_constraintTop_toBottomOf="@+id/textView_label_labor" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_label_labor"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <Spinner
                 android:id="@+id/spinner_labor_type"
@@ -345,7 +346,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
-                android:contentDescription="@string/description_spinner_content"
+                android:contentDescription="@string/description_spinner_labor_type_content"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.533"

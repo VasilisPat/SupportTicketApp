@@ -5,68 +5,68 @@ import android.os.Parcelable;
 
 public class SupportTicket implements Parcelable {
 
-    private int mlaborHours;
-    private String mtechnicianID, mtechnicianName, mclientName, mclientAddress, mclientPhone, mclientEmail, mlaborDate,
-            mlaborType, mlaborDescription;
+    private int mLaborHours;
+    private String mTicketID, mTechnicianName, mClientName, mClientAddress, mClientPhone, mClientEmail, mLaborDate,
+            mLaborType, mLaborDescription;
 
     public SupportTicket() {
     }
 
-    public SupportTicket(int laborHours, String technicianID, String technicianName, String clientName, String clientAddress, String clientPhone, String clientEmail, String laborDate, String laborType, String laborDescription) {
-        this.mlaborHours = laborHours;
-        this.mtechnicianID = technicianID;
-        this.mtechnicianName = technicianName;
-        this.mclientName = clientName;
-        this.mclientAddress = clientAddress;
-        this.mclientPhone = clientPhone;
-        this.mclientEmail = clientEmail;
-        this.mlaborDate = laborDate;
-        this.mlaborType = laborType;
-        this.mlaborDescription = laborDescription;
+    public SupportTicket(int laborHours, String ticketID, String technicianName, String clientName, String clientAddress, String clientPhone, String clientEmail, String laborDate, String laborType, String laborDescription) {
+        this.mLaborHours = laborHours;
+        this.mTicketID = ticketID;
+        this.mTechnicianName = technicianName;
+        this.mClientName = clientName;
+        this.mClientAddress = clientAddress;
+        this.mClientPhone = clientPhone;
+        this.mClientEmail = clientEmail;
+        this.mLaborDate = laborDate;
+        this.mLaborType = laborType;
+        this.mLaborDescription = laborDescription;
     }
 
     //Getters
-    public int getLaborHours() { return mlaborHours; }
+    public int getLaborHours() { return mLaborHours; }
 
-    public String getTechnicianID() { return mtechnicianID; }
+    public String getTicketID() { return mTicketID; }
 
-    public String getTechnicianName() { return mtechnicianName; }
+    public String getTechnicianName() { return mTechnicianName; }
 
-    public String getClientName() { return mclientName; }
+    public String getClientName() { return mClientName; }
 
-    public String getClientAddress() { return mclientAddress; }
+    public String getClientAddress() { return mClientAddress; }
 
-    public String getClientPhone() { return mclientPhone; }
+    public String getClientPhone() { return mClientPhone; }
 
-    public String getClientEmail() { return mclientEmail; }
+    public String getClientEmail() { return mClientEmail; }
 
-    public String getLaborDate() { return mlaborDate; }
+    public String getLaborDate() { return mLaborDate; }
 
-    public String getLaborType() { return mlaborType; }
+    public String getLaborType() { return mLaborType; }
 
-    public String getLaborDescription() { return mlaborDescription; }
+    public String getLaborDescription() { return mLaborDescription; }
 
     //Setters
 
-    public void setLaborHours(int laborHours) { this.mlaborHours = laborHours; }
+    public void setLaborHours(int laborHours) { this.mLaborHours = laborHours; }
 
-    public void setTechnicianID(String technicianID) { this.mtechnicianID = technicianID; }
+    public void setTicketID(String ticketID) { this.mTicketID = ticketID; }
 
-    public void setTechnicianName(String technicianName) { this.mtechnicianName = technicianName; }
+    public void setTechnicianName(String technicianName) { this.mTechnicianName = technicianName; }
 
-    public void setClientName(String clientName) { this.mclientName = clientName; }
+    public void setClientName(String clientName) { this.mClientName = clientName; }
 
-    public void setClientAddress(String clientAddress) { this.mclientAddress = clientAddress; }
+    public void setClientAddress(String clientAddress) { this.mClientAddress = clientAddress; }
 
-    public void setClientPhone(String clientPhone) { this.mclientPhone = clientPhone; }
+    public void setClientPhone(String clientPhone) { this.mClientPhone = clientPhone; }
 
-    public void setClientEmail(String clientEmail) { this.mclientEmail = clientEmail; }
+    public void setClientEmail(String clientEmail) { this.mClientEmail = clientEmail; }
 
-    public void setLaborDate(String laborDate) { this.mlaborDate = laborDate; }
+    public void setLaborDate(String laborDate) { this.mLaborDate = laborDate; }
 
-    public void setLaborType(String laborType) { this.mlaborType = laborType; }
+    public void setLaborType(String laborType) { this.mLaborType = laborType; }
 
-    public void setLaborDescription(String laborDescription) { this.mlaborDescription = laborDescription; }
+    public void setLaborDescription(String laborDescription) { this.mLaborDescription = laborDescription; }
 
     @Override
     public int describeContents() {
@@ -74,43 +74,43 @@ public class SupportTicket implements Parcelable {
     }
 
     protected SupportTicket(Parcel in) {
-        this.mlaborHours = in.readInt();
-        this.mtechnicianID = in.readString();
-        this.mtechnicianName = in.readString();
-        this.mclientName = in.readString();
-        this.mclientAddress = in.readString();
-        this.mclientPhone = in.readString();
-        this.mclientEmail = in.readString();
-        this.mlaborDate = in.readString();
-        this.mlaborType = in.readString();
-        this.mlaborDescription = in.readString();
+        this.mLaborHours = in.readInt();
+        this.mTicketID = in.readString();
+        this.mTechnicianName = in.readString();
+        this.mClientName = in.readString();
+        this.mClientAddress = in.readString();
+        this.mClientPhone = in.readString();
+        this.mClientEmail = in.readString();
+        this.mLaborDate = in.readString();
+        this.mLaborType = in.readString();
+        this.mLaborDescription = in.readString();
     }
 
     public void readFromParcel(Parcel source) {
-        this.mlaborHours = source.readInt();
-        this.mtechnicianID = source.readString();
-        this.mtechnicianName = source.readString();
-        this.mclientName = source.readString();
-        this.mclientAddress = source.readString();
-        this.mclientPhone = source.readString();
-        this.mclientEmail = source.readString();
-        this.mlaborDate = source.readString();
-        this.mlaborType = source.readString();
-        this.mlaborDescription = source.readString();
+        this.mLaborHours = source.readInt();
+        this.mTicketID = source.readString();
+        this.mTechnicianName = source.readString();
+        this.mClientName = source.readString();
+        this.mClientAddress = source.readString();
+        this.mClientPhone = source.readString();
+        this.mClientEmail = source.readString();
+        this.mLaborDate = source.readString();
+        this.mLaborType = source.readString();
+        this.mLaborDescription = source.readString();
     }
 
     @Override
     public void writeToParcel(Parcel parcelDestination, int i) {
-        parcelDestination.writeInt(mlaborHours);
-        parcelDestination.writeString(mtechnicianID);
-        parcelDestination.writeString(mtechnicianName);
-        parcelDestination.writeString(mclientName);
-        parcelDestination.writeString(mclientAddress);
-        parcelDestination.writeString(mclientPhone);
-        parcelDestination.writeString(mclientEmail);
-        parcelDestination.writeString(mlaborDate);
-        parcelDestination.writeString(mlaborType);
-        parcelDestination.writeString(mlaborDescription);
+        parcelDestination.writeInt(mLaborHours);
+        parcelDestination.writeString(mTicketID);
+        parcelDestination.writeString(mTechnicianName);
+        parcelDestination.writeString(mClientName);
+        parcelDestination.writeString(mClientAddress);
+        parcelDestination.writeString(mClientPhone);
+        parcelDestination.writeString(mClientEmail);
+        parcelDestination.writeString(mLaborDate);
+        parcelDestination.writeString(mLaborType);
+        parcelDestination.writeString(mLaborDescription);
     }
 
     public static final Creator<SupportTicket> CREATOR = new Creator<SupportTicket>() {

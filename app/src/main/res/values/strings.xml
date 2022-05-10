@@ -6,7 +6,8 @@
     <!-- Description -->
     <string name="description_imageView_support_ticket_logo">Support Ticket Logo</string>
     <string name="description_imageView_new_ticket_icon">New Ticket Icon</string>
-    <string name="description_spinner_content">Select Work Type</string>
+    <string name="description_spinner_labor_type_content">Select Work Type</string>
+    <string name="description_spinner_ticket_id_content">Ticket ID</string>
 
     <!-- Buttons -->
     <string name="button_new_ticket">New Ticket</string>
@@ -16,7 +17,7 @@
 
     <!-- Labels for TextView -->
     <string name="label_technician"><u>Technician</u></string>
-    <string name="label_technician_id">ID:</string>
+    <string name="label_ticket_id">Ticket #:</string>
     <string name="label_technician_name">Name:</string>
     <string name="label_client"><u>Client</u></string>
     <string name="label_client_address">Address:</string>
@@ -29,12 +30,11 @@
     <string name="label_labor_description">Description:</string>
 
     <!-- Hints for EditText-->
-    <string name="hint_technician_id">Technician\'s ID</string>
-    <string name="hint_technician_name">Technician\'s Name</string>
     <string name="hint_client_name">Client\'s Name</string>
     <string name="hint_client_address">Client\'s Address</string>
     <string name="hint_client_phone">Client\'s Phone Number</string>
     <string name="hint_client_email">Client\'s Email</string>
     <string name="hint_labor_hours">Example: 2.5</string>
+    <string name="hint_ticket_id">Current Ticket ID Number</string>
     <string name="hint_labor_description">Describe the work performed</string>
 </resources>

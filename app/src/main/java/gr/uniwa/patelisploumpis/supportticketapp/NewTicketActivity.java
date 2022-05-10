@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,11 +18,11 @@ import android.widget.Spinner;
 public class NewTicketActivity extends AppCompatActivity {
 
     private Button cancelButton, saveButton;
-    private EditText technicianIDEditText, technicianNameEditText, clientNameEditText, clientAddressEditText,
+    private EditText ticketIDEditText, clientNameEditText, clientAddressEditText,
             clientPhoneEditText, clientEmailEditText, laborDateEditText, laborHoursEditText, laborDescriptionEditText;
     private int laborHours;
-    private Spinner laborTypeSpinner;
-    private String technicianID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
+    private Spinner technicianNameSpinner,laborTypeSpinner;
+    private String ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
             laborType, laborDescription;
     private SupportTicket ticket;
 
@@ -31,14 +32,14 @@ public class NewTicketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ticket);
 
-        technicianIDEditText = findViewById(R.id.editTextNumber_technician_id);
-        technicianNameEditText = findViewById(R.id.editTextText_technician_name);
+        ticketIDEditText = findViewById(R.id.editTextNumber_ticket_id);
+        technicianNameSpinner = findViewById(R.id.spinner_technician_name);
         clientNameEditText = findViewById(R.id.editTextText_client_name);
         clientAddressEditText = findViewById(R.id.editText_client_address);
         clientPhoneEditText = findViewById(R.id.editTextPhone_client_phone);
         clientEmailEditText = findViewById(R.id.editTextEmail_client_email);
         laborDateEditText = findViewById(R.id.editTextDate_labor_date);
-        laborTypeSpinner = (Spinner) findViewById(R.id.spinner_labor_type);
+        laborTypeSpinner = findViewById(R.id.spinner_labor_type);
         laborHoursEditText = findViewById(R.id.editTextNumberDecimal_labor_hours);
         laborDescriptionEditText = findViewById(R.id.editTextMultiLine_labor_description);
         cancelButton = findViewById(R.id.button_cancel_ticket);
@@ -47,15 +48,33 @@ public class NewTicketActivity extends AppCompatActivity {
         //Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
-        //Fill spinner with options
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        laborTypeSpinner.setAdapter(adapter);
+        //Set last support ticket number
+        ticketIDEditText.setText(String.valueOf(DatabaseHandler.getInstance(this).getLastTicketID() + 1));
 
-        //Spinner item selection listener
+        //Fill technician name spinner with options
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        technicianNameSpinner.setAdapter(adapter1);
+
+        //Technician name spinner item selection listener
+        technicianNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Log.i("INFO", "TechnicianNameSpinner's onItemSelected Listener called");
+                technicianName = parent.getItemAtPosition(pos).toString();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        //Fill labor type spinner with options
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        laborTypeSpinner.setAdapter(adapter2);
+
+        //Labor type spinner item selection listener
         laborTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Log.i("INFO", "Spinner's onItemSelected Listener called");
+                Log.i("INFO", "LaborTypeSpinner's onItemSelected Listener called");
                 laborType = parent.getItemAtPosition(pos).toString();
             }
             public void onNothingSelected(AdapterView<?> parent) {
@@ -66,8 +85,7 @@ public class NewTicketActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i("INFO", "Save ticket button onClick method called");
-                technicianID = technicianIDEditText.getText().toString();
-                technicianName = technicianNameEditText.getText().toString();
+                ticketID = ticketIDEditText.getText().toString();
                 clientName= clientNameEditText.getText().toString();
                 clientAddress= clientAddressEditText.getText().toString();
                 clientPhone= clientPhoneEditText.getText().toString();
@@ -76,12 +94,13 @@ public class NewTicketActivity extends AppCompatActivity {
                 laborHours = Integer.parseInt(laborHoursEditText.getText().toString());
                 laborDescription= laborDescriptionEditText.getText().toString();
 
-                ticket = new SupportTicket(laborHours, technicianID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
+                ticket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
                         laborDate, laborType,laborDescription);
 
+                DatabaseHandler.getInstance(NewTicketActivity.this).addSupportTicket(ticket);
+
                 //TODO 1.1 PDF Creator Class or Method
-                //TODO 1.2 DB Save
-                //TODO 1.3 Email to all
+                //TODO 1.2 Email to all
                 //TODO 2.1 Toast message success/fail
 
                 Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);

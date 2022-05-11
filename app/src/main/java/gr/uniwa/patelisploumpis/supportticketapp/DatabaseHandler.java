@@ -73,6 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    // Add new SupportTicket entry to DB
     public void addSupportTicket(SupportTicket ticket) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -91,13 +92,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.insertOrThrow(TABLE_TICKETS, null, values);
             db.setTransactionSuccessful();
-        }catch(Exception e) {
+        }catch(Exception e){
             Log.d("ERROR", "Error while trying to add ticket to database");
-        }finally {
+        }finally{
             db.endTransaction();
         }
     }
 
+    // Retrieve all SupportTickets stored in DB
     @SuppressLint("Range") // Suppress error "value must be >0" for get column index
     public List<SupportTicket> getAllTickets() {
         List<SupportTicket> tickets = new ArrayList<>();
@@ -123,7 +125,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }while(cursor.moveToNext());
             }
         }catch(Exception e){
-            Log.d("ERROR", "Error while trying to get tickets from database");
+            Log.d("ERROR", "Error while trying to retrieve tickets list from database");
         }finally{
             if(cursor != null && !cursor.isClosed()){
                 cursor.close();
@@ -133,6 +135,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return tickets;
     }
 
+    // Retrieve SupportTicket by tickedID
+    @SuppressLint("Range") // Suppress error "value must be >0" for get column index
+    public SupportTicket getTicketByID(int ticketID) {
+        SupportTicket ticket = new SupportTicket();
+        String TICKET_BY_ID_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, String.valueOf(ticketID));
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(TICKET_BY_ID_SELECT_QUERY, null);
+        try {
+            if (cursor.moveToLast()) {
+                ticket.setTicketID(cursor.getString(cursor.getColumnIndex(KEY_TICKET_ID)));
+                ticket.setTechnicianName(cursor.getString(cursor.getColumnIndex(KEY_TECHNICIAN_NAME)));
+                ticket.setClientName(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_NAME)));
+                ticket.setClientAddress(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_ADDRESS)));
+                ticket.setClientPhone(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_PHONE)));
+                ticket.setClientEmail(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_EMAIL)));
+                ticket.setLaborDate(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DATE)));
+                ticket.setLaborType(cursor.getString(cursor.getColumnIndex(KEY_LABOR_TYPE)));
+                ticket.setLaborHours(cursor.getInt(cursor.getColumnIndex(KEY_LABOR_HOURS)));
+                ticket.setLaborDescription(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DESCRIPTION)));
+            }
+        } catch (Exception e) {
+            Log.d("ERROR", "Error while trying to retrieve ticket from database");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+
+            return ticket;
+        }
+    }
+
+    // Retrieve the ticketID of the last SupportTicket stored in DB
     @SuppressLint("Range") // Suppress error "value must be >0" for get column index
     public int getLastTicketID() {
         int lastTicketID = 0;
@@ -145,7 +180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 lastTicketID = cursor.getInt(cursor.getColumnIndex(KEY_TICKET_ID));
             }
         }catch(Exception e){
-            Log.d("ERROR", "Error while trying to get last ticket id from database");
+            Log.d("ERROR", "Error while trying to retrieve last ticket's id from database");
         }finally{
             if(cursor != null && !cursor.isClosed()){
                 cursor.close();

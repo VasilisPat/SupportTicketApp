@@ -45,18 +45,18 @@ public class NewTicketActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.button_cancel_ticket);
         saveButton = findViewById(R.id.button_save_ticket);
 
-        //Colorize action bar
+        // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
-        //Set last support ticket number
+        // Set last support ticket number
         ticketIDEditText.setText(String.valueOf(DatabaseHandler.getInstance(this).getLastTicketID() + 1));
 
-        //Fill technician name spinner with options
+        // Fill technician name spinner with options
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         technicianNameSpinner.setAdapter(adapter1);
 
-        //Technician name spinner item selection listener
+        // Technician name spinner item selection listener
         technicianNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Log.i("INFO", "TechnicianNameSpinner's onItemSelected Listener called");
@@ -66,12 +66,12 @@ public class NewTicketActivity extends AppCompatActivity {
             }
         });
 
-        //Fill labor type spinner with options
+        // Fill labor type spinner with options
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         laborTypeSpinner.setAdapter(adapter2);
 
-        //Labor type spinner item selection listener
+        // Labor type spinner item selection listener
         laborTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Log.i("INFO", "LaborTypeSpinner's onItemSelected Listener called");

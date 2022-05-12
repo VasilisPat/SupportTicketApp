@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,7 +48,7 @@ public class NewTicketActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
         // Set last support ticket number
-        ticketIDEditText.setText(String.valueOf(DatabaseHandler.getInstance(this).getLastTicketID() + 1));
+        ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(this).getLastTicketID() + 1));
 
         // Fill technician name spinner with options
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names, android.R.layout.simple_spinner_item);
@@ -97,7 +96,7 @@ public class NewTicketActivity extends AppCompatActivity {
                 ticket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
                         laborDate, laborType,laborDescription);
 
-                DatabaseHandler.getInstance(NewTicketActivity.this).addSupportTicket(ticket);
+                DatabaseHelper.getInstance(NewTicketActivity.this).addSupportTicket(ticket);
 
                 //TODO 1.1 PDF Creator Class or Method
                 //TODO 1.2 Email to all

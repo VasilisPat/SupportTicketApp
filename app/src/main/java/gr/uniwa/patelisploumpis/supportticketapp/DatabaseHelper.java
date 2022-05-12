@@ -4,16 +4,20 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHandler extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static DatabaseHandler dbInstance;
+    private Cursor cursor;
+    private static DatabaseHelper dbInstance;
+    private SQLiteDatabase sqLiteDatabaseR = getReadableDatabase();
 
     // Database Info
     private static final String DATABASE_NAME = "support_ticket_app";
@@ -34,21 +38,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_LABOR_HOURS = "laborHours";
     private static final String KEY_LABOR_DESCRIPTION = "laborDescription";
 
-    private DatabaseHandler(Context context) {
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     // Singleton Pattern Implementation
-    public static synchronized DatabaseHandler getInstance(Context context) {
+    public static synchronized DatabaseHelper getInstance(Context context) {
         if(dbInstance == null){
-            dbInstance = new DatabaseHandler(context.getApplicationContext());
+            dbInstance = new DatabaseHelper(context.getApplicationContext());
         }
-
         return dbInstance;
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_TICKETS_TABLE = "CREATE TABLE " + TABLE_TICKETS + "(" +
                 KEY_TICKET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 KEY_TECHNICIAN_NAME+ " TEXT NOT NULL," +
@@ -62,22 +65,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 KEY_LABOR_DESCRIPTION + " TEXT" +
                 ")";
 
-        db.execSQL(CREATE_TICKETS_TABLE);
+        sqLiteDatabase.execSQL(CREATE_TICKETS_TABLE);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         if(oldVersion != newVersion){
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_TICKETS);
-            onCreate(db);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TICKETS);
+            onCreate(sqLiteDatabase);
         }
     }
 
     // Add new SupportTicket entry to DB
     public void addSupportTicket(SupportTicket ticket) {
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
-        db.beginTransaction();
+        sqLiteDatabase.beginTransaction();
         try{
             ContentValues values = new ContentValues();
             values.put(KEY_TECHNICIAN_NAME, ticket.getTechnicianName());
@@ -90,12 +93,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_LABOR_HOURS, ticket.getLaborHours());
             values.put(KEY_LABOR_DESCRIPTION, ticket.getLaborDescription());
 
-            db.insertOrThrow(TABLE_TICKETS, null, values);
-            db.setTransactionSuccessful();
-        }catch(Exception e){
+            sqLiteDatabase.insertOrThrow(TABLE_TICKETS, null, values);
+            sqLiteDatabase.setTransactionSuccessful();
+        }catch(SQLiteException e){
             Log.d("ERROR", "Error while trying to add ticket to database");
         }finally{
-            db.endTransaction();
+            sqLiteDatabase.endTransaction();
         }
     }
 
@@ -104,9 +107,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<SupportTicket> getAllTickets() {
         List<SupportTicket> tickets = new ArrayList<>();
         String TICKETS_SELECT_QUERY = String.format("SELECT * FROM %s", TABLE_TICKETS);
+        cursor = sqLiteDatabaseR.rawQuery(TICKETS_SELECT_QUERY, null);
 
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery(TICKETS_SELECT_QUERY, null);
         try{
             if(cursor.moveToFirst()){
                 do{
@@ -124,12 +126,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     tickets.add(ticket);
                 }while(cursor.moveToNext());
             }
-        }catch(Exception e){
+        }catch(SQLiteException e){
             Log.d("ERROR", "Error while trying to retrieve tickets list from database");
         }finally{
-            if(cursor != null && !cursor.isClosed()){
-                cursor.close();
-            }
+            if(cursor != null && !cursor.isClosed()) { cursor.close(); }
         }
 
         return tickets;
@@ -140,11 +140,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public SupportTicket getTicketByID(int ticketID) {
         SupportTicket ticket = new SupportTicket();
         String TICKET_BY_ID_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, String.valueOf(ticketID));
+        cursor = sqLiteDatabaseR.rawQuery(TICKET_BY_ID_SELECT_QUERY, null);
 
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery(TICKET_BY_ID_SELECT_QUERY, null);
-        try {
-            if (cursor.moveToLast()) {
+        try{
+            if(cursor.moveToLast()){
                 ticket.setTicketID(cursor.getString(cursor.getColumnIndex(KEY_TICKET_ID)));
                 ticket.setTechnicianName(cursor.getString(cursor.getColumnIndex(KEY_TECHNICIAN_NAME)));
                 ticket.setClientName(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_NAME)));
@@ -156,15 +155,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ticket.setLaborHours(cursor.getInt(cursor.getColumnIndex(KEY_LABOR_HOURS)));
                 ticket.setLaborDescription(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DESCRIPTION)));
             }
-        } catch (Exception e) {
+        }catch(SQLiteException e){
             Log.d("ERROR", "Error while trying to retrieve ticket from database");
-        } finally {
-            if (cursor != null && !cursor.isClosed()) {
-                cursor.close();
-            }
-
-            return ticket;
+        }finally{
+            if(cursor != null && !cursor.isClosed()) { cursor.close(); }
         }
+            return ticket;
     }
 
     // Retrieve the ticketID of the last SupportTicket stored in DB
@@ -172,26 +168,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public int getLastTicketID() {
         int lastTicketID = 0;
         String LAST_TICKET_ID_SELECT_QUERY = String.format("SELECT * FROM %s", TABLE_TICKETS);
+        cursor = sqLiteDatabaseR.rawQuery(LAST_TICKET_ID_SELECT_QUERY, null);
 
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery(LAST_TICKET_ID_SELECT_QUERY, null);
         try{
             if(cursor.moveToLast()){
                 lastTicketID = cursor.getInt(cursor.getColumnIndex(KEY_TICKET_ID));
             }
-        }catch(Exception e){
+        }catch(SQLiteException e){
             Log.d("ERROR", "Error while trying to retrieve last ticket's id from database");
         }finally{
-            if(cursor != null && !cursor.isClosed()){
-                cursor.close();
-            }
+            if(cursor != null && !cursor.isClosed()) { cursor.close(); }
         }
 
         return lastTicketID;
     }
 
     public void clearTicketsTable(){
-        SQLiteDatabase db = getReadableDatabase();
-        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + TABLE_TICKETS + "'");
+        sqLiteDatabaseR.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + TABLE_TICKETS + "'");
     }
 }

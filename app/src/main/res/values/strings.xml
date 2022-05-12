@@ -34,6 +34,7 @@
     <string name="hint_client_address">Client\'s Address</string>
     <string name="hint_client_phone">Client\'s Phone Number</string>
     <string name="hint_client_email">Client\'s Email</string>
+    <string name="hint_labor_date">YYYY/MM/DD</string>
     <string name="hint_labor_hours">Example: 2.5</string>
     <string name="hint_ticket_id">Current Ticket ID Number</string>
     <string name="hint_labor_description">Describe the work performed</string>

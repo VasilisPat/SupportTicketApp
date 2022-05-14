@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -82,18 +81,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.beginTransaction();
         try{
-            ContentValues values = new ContentValues();
-            values.put(KEY_TECHNICIAN_NAME, ticket.getTechnicianName());
-            values.put(KEY_CLIENT_NAME, ticket.getClientName());
-            values.put(KEY_CLIENT_ADDRESS, ticket.getClientAddress());
-            values.put(KEY_CLIENT_PHONE, ticket.getClientPhone());
-            values.put(KEY_CLIENT_EMAIL, ticket.getClientEmail());
-            values.put(KEY_LABOR_DATE, ticket.getLaborDate());
-            values.put(KEY_LABOR_TYPE, ticket.getLaborType());
-            values.put(KEY_LABOR_HOURS, ticket.getLaborHours());
-            values.put(KEY_LABOR_DESCRIPTION, ticket.getLaborDescription());
+            ContentValues cValues = new ContentValues();
+            cValues.put(KEY_TECHNICIAN_NAME, ticket.getTechnicianName());
+            cValues.put(KEY_CLIENT_NAME, ticket.getClientName());
+            cValues.put(KEY_CLIENT_ADDRESS, ticket.getClientAddress());
+            cValues.put(KEY_CLIENT_PHONE, ticket.getClientPhone());
+            cValues.put(KEY_CLIENT_EMAIL, ticket.getClientEmail());
+            cValues.put(KEY_LABOR_DATE, ticket.getLaborDate());
+            cValues.put(KEY_LABOR_TYPE, ticket.getLaborType());
+            cValues.put(KEY_LABOR_HOURS, ticket.getLaborHours());
+            cValues.put(KEY_LABOR_DESCRIPTION, ticket.getLaborDescription());
 
-            sqLiteDatabase.insertOrThrow(TABLE_TICKETS, null, values);
+            sqLiteDatabase.insertOrThrow(TABLE_TICKETS, null, cValues);
             sqLiteDatabase.setTransactionSuccessful();
         }catch(SQLiteException e){
             Log.d("ERROR", "Error while trying to add ticket to database");
@@ -183,7 +182,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return lastTicketID;
     }
 
-    public void clearTicketsTable(){
-        sqLiteDatabaseR.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + TABLE_TICKETS + "'");
-    }
 }

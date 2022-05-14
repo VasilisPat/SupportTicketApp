@@ -7,19 +7,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     private Handler scHandler = new Handler();
-    private ImageView logo;
+    private ImageView appLogo;
+    private TextView appInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        logo = findViewById(R.id.imageView_support_ticket_logo_ss);
-        logo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
+        appLogo = findViewById(R.id.imageView_support_ticket_logo_ss);
+        appInfo = findViewById(R.id.textView_app_info);
+        appLogo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
+        appInfo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
 
         scHandler.postDelayed(new Runnable() {
             @Override

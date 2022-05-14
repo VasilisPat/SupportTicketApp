@@ -95,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             sqLiteDatabase.insertOrThrow(TABLE_TICKETS, null, cValues);
             sqLiteDatabase.setTransactionSuccessful();
         }catch(SQLiteException e){
+            e.printStackTrace();
             Log.d("ERROR", "Error while trying to add ticket to database");
         }finally{
             sqLiteDatabase.endTransaction();
@@ -126,6 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }while(cursor.moveToNext());
             }
         }catch(SQLiteException e){
+            e.printStackTrace();
             Log.d("ERROR", "Error while trying to retrieve tickets list from database");
         }finally{
             if(cursor != null && !cursor.isClosed()) { cursor.close(); }
@@ -155,6 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ticket.setLaborDescription(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DESCRIPTION)));
             }
         }catch(SQLiteException e){
+            e.printStackTrace();
             Log.d("ERROR", "Error while trying to retrieve ticket from database");
         }finally{
             if(cursor != null && !cursor.isClosed()) { cursor.close(); }
@@ -174,6 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 lastTicketID = cursor.getInt(cursor.getColumnIndex(KEY_TICKET_ID));
             }
         }catch(SQLiteException e){
+            e.printStackTrace();
             Log.d("ERROR", "Error while trying to retrieve last ticket's id from database");
         }finally{
             if(cursor != null && !cursor.isClosed()) { cursor.close(); }

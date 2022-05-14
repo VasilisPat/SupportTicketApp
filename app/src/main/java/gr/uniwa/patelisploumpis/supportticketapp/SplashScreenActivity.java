@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     finish();
                 }catch(Exception e){
                     e.printStackTrace();
+                    Log.e("Error", "Error starting MainActivity");
                 }
             }
         }, 3000);

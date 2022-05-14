@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         newTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("INFO", "NewTicket button onClick method called");
                 Intent intent = new Intent(MainActivity.this, NewTicketActivity.class);
                 startActivity(intent);
             }
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("INFO", "View button onClick method called");
                 Intent intent = new Intent(MainActivity.this, NewTicketActivity.class);
                 startActivity(intent);
             }
@@ -80,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
                 boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                 if(writeStorage && readStorage){
-                    Toast.makeText(this, "Required Permission Granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Required Permissions Granted", Toast.LENGTH_SHORT).show();
                 }else{
-                        Toast.makeText(this, "Required Permission Denied", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Required Permissions Denied", Toast.LENGTH_SHORT).show();
                         finish();
                 }
             }

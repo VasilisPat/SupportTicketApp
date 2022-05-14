@@ -17,6 +17,7 @@ import android.widget.Spinner;
 
 public class NewTicketActivity extends AppCompatActivity {
 
+    private AsyncTask aSyncTask;
     private Button cancelButton, saveButton;
     private EditText ticketIDEditText, clientNameEditText, clientAddressEditText,
             clientPhoneEditText, clientEmailEditText, laborDateEditText, laborHoursEditText, laborDescriptionEditText;
@@ -47,8 +48,14 @@ public class NewTicketActivity extends AppCompatActivity {
         // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
-        // Set last support ticket number
-        ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
+        aSyncTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                // Set last support ticket number
+                ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
+                return null;
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);;
 
         // Fill technician name spinner with options
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names, android.R.layout.simple_spinner_item);
@@ -93,7 +100,14 @@ public class NewTicketActivity extends AppCompatActivity {
                 ticket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
                         laborDate, laborType,laborDescription);
 
-                DatabaseHelper.getInstance(getApplicationContext()).addSupportTicket(ticket);
+                aSyncTask = new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        DatabaseHelper.getInstance(getApplicationContext()).addSupportTicket(ticket);
+                        return null;
+                    }
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);;
+
 
                 //TODO 1.1 PDF Creator Class or Method
                 new PDFGenerator().execute(new ATaskParams(getApplicationContext(), Integer.valueOf(ticket.getTicketID())));

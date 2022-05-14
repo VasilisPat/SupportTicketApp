@@ -107,11 +107,9 @@ public class NewTicketActivity extends AppCompatActivity {
                     }
                 }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);;
 
-
-                //TODO 1.1 PDF Creator Class or Method
                 new PDFGenerator().execute(new ATaskParams(getApplicationContext(), Integer.valueOf(ticket.getTicketID())));
-                //TODO 1.2 Email to all
-                //TODO 1.3 AsyncTasks for DB
+
+                //TODO 1.1 Email to all
 
                 Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
                 startActivity(intent);

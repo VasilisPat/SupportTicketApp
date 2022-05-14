@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,6 @@ public class NewTicketActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("INFO", "NewTicketActivity onCreate method called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ticket);
 
@@ -48,7 +48,7 @@ public class NewTicketActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
         // Set last support ticket number
-        ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(this).getLastTicketID() + 1));
+        ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
 
         // Fill technician name spinner with options
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names, android.R.layout.simple_spinner_item);
@@ -58,7 +58,6 @@ public class NewTicketActivity extends AppCompatActivity {
         // Technician name spinner item selection listener
         technicianNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Log.i("INFO", "TechnicianNameSpinner's onItemSelected Listener called");
                 technicianName = parent.getItemAtPosition(pos).toString();
             }
             public void onNothingSelected(AdapterView<?> parent) {
@@ -73,7 +72,6 @@ public class NewTicketActivity extends AppCompatActivity {
         // Labor type spinner item selection listener
         laborTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Log.i("INFO", "LaborTypeSpinner's onItemSelected Listener called");
                 laborType = parent.getItemAtPosition(pos).toString();
             }
             public void onNothingSelected(AdapterView<?> parent) {
@@ -83,7 +81,6 @@ public class NewTicketActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("INFO", "Save ticket button onClick method called");
                 ticketID = ticketIDEditText.getText().toString();
                 clientName= clientNameEditText.getText().toString();
                 clientAddress= clientAddressEditText.getText().toString();
@@ -96,11 +93,12 @@ public class NewTicketActivity extends AppCompatActivity {
                 ticket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
                         laborDate, laborType,laborDescription);
 
-                DatabaseHelper.getInstance(NewTicketActivity.this).addSupportTicket(ticket);
+                DatabaseHelper.getInstance(getApplicationContext()).addSupportTicket(ticket);
 
                 //TODO 1.1 PDF Creator Class or Method
+                new PDFGenerator().execute(new ATaskParams(getApplicationContext(), Integer.valueOf(ticket.getTicketID())));
                 //TODO 1.2 Email to all
-                //TODO 2.1 Toast message success/fail
+                //TODO 1.3 AsyncTasks for DB
 
                 Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -110,7 +108,6 @@ public class NewTicketActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("INFO", "Cancel ticket button onClick method called");
                 Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
                 startActivity(intent);
             }

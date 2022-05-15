@@ -3,7 +3,6 @@
     <!-- Permission for R/W storage access -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -28,11 +27,13 @@
         <activity
             android:name=".NewTicketActivity"
             android:exported="false"
+            android:theme="@style/NewTicketActivity"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ViewTicketsActivity"
             android:exported="false"
+            android:theme="@style/ViewTicketsActivity"
             android:parentActivityName=".MainActivity"/>
 
         <provider

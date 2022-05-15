@@ -12,10 +12,12 @@ public class ATaskParams {
         this.mTicketID = ticketID;
     }
 
+    // Getters
     public Context getAppContext() { return mAppContext; }
 
     public int getTicketID() { return mTicketID; }
 
+    //Setters
     public void setAppContext(Context mAppContext) { this.mAppContext = mAppContext; }
 
     public void setTicketID(int mTicketID) { this.mTicketID = mTicketID; }

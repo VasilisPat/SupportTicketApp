@@ -47,7 +47,6 @@ public class SupportTicket implements Parcelable {
     public String getLaborDescription() { return mLaborDescription; }
 
     //Setters
-
     public void setLaborHours(int laborHours) { this.mLaborHours = laborHours; }
 
     public void setTicketID(String ticketID) { this.mTicketID = ticketID; }

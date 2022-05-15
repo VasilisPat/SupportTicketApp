@@ -27,7 +27,7 @@ public class PDFGenerator extends AsyncTask<ATaskParams, Integer, Void> {
 
     @Override
     protected Void doInBackground(ATaskParams... params) {
-        generatePDF(params[0].getAppContext(),params[0].getTicketID());
+        generatePDF(params[0].getAppContext(), params[0].getTicketID());
         return null;
     }
 

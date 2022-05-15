@@ -105,8 +105,9 @@ public class NewTicketActivity extends AppCompatActivity {
                         DatabaseHelper.getInstance(getApplicationContext()).addSupportTicket(ticket);
                         return null;
                     }
-                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);;
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null); //Parallel execution
 
+                //Generate PDF file based on ticketID passed as argument
                 new PDFGenerator().execute(new ATaskParams(getApplicationContext(), Integer.valueOf(ticket.getTicketID())));
 
                 //TODO 1.1 Email to all

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private Handler scHandler = new Handler();
+    private final Handler scHandler = new Handler();
     private ImageView appLogo;
     private TextView appInfo;
 
@@ -23,6 +23,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         appLogo = findViewById(R.id.imageView_support_ticket_logo_ss);
         appInfo = findViewById(R.id.textView_app_info);
+
+        // Animations for application logo and info
         appLogo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         appInfo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
 

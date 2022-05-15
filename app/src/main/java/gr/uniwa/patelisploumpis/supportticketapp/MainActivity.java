@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private Button newTicketButton, viewButton;
-    private Handler exitHandler = new Handler();
     private static final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Required Permissions Granted", Toast.LENGTH_SHORT).show();
                 }else{
                         Toast.makeText(this, "Required Permissions Denied", Toast.LENGTH_SHORT).show();
-                        finish();
+                        finish(); // Terminate application
                 }
             }
         }

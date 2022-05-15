@@ -14,9 +14,9 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private Cursor cursor;
+    private static Cursor cursor;
     private static DatabaseHelper dbInstance;
-    private SQLiteDatabase sqLiteDatabaseR = getReadableDatabase();
+    private final SQLiteDatabase sqLiteDatabaseR = getReadableDatabase();
 
     // Database Info
     private static final String DATABASE_NAME = "support_ticket_app";
@@ -140,7 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @SuppressLint("Range") // Suppress error "value must be >0" for get column index
     public SupportTicket getTicketByID(int ticketID) {
         SupportTicket ticket = new SupportTicket();
-        String TICKET_BY_ID_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, String.valueOf(ticketID));
+        String TICKET_BY_ID_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
         cursor = sqLiteDatabaseR.rawQuery(TICKET_BY_ID_SELECT_QUERY, null);
 
         try{

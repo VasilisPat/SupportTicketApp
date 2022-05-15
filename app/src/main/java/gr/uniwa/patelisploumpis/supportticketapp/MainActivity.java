@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button newTicketButton, viewButton;
+    private Button newTicketButton, viewTicketsButton;
     private static final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
@@ -28,9 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         newTicketButton = findViewById(R.id.button_new_ticket);
-        viewButton = findViewById(R.id.button_view_tickets);
-
-        //DatabaseHandler.getInstance(this).addSupportTicket(new SupportTicket(1, "12", "Bill", "Luk", "Nowhere", "003069444444", "me@me.gr", "2022/05/10", "Work", "TestingMain"));
+        viewTicketsButton = findViewById(R.id.button_view_tickets);
 
         newTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewButton.setOnClickListener(new View.OnClickListener() {
+        viewTicketsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NewTicketActivity.class);
+                Intent intent = new Intent(MainActivity.this, ViewTicketsActivity.class);
                 startActivity(intent);
             }
         });

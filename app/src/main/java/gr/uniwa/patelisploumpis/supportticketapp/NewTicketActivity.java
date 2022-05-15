@@ -54,7 +54,7 @@ public class NewTicketActivity extends AppCompatActivity {
                 ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
                 return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);;
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 
         // Fill technician name spinner with options
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names, android.R.layout.simple_spinner_item);

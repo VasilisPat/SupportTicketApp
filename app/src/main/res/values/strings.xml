@@ -8,10 +8,11 @@
     <string name="description_imageView_new_ticket_icon">New Ticket Icon</string>
     <string name="description_spinner_labor_type_content">Select Work Type</string>
     <string name="description_spinner_ticket_id_content">Ticket ID</string>
+    <string name="description_imageView_pdf_file_icon">PDF File Icon</string>
 
     <!-- Buttons -->
     <string name="button_new_ticket">New Ticket</string>
-    <string name="button_view_tickets">View Archive</string>
+    <string name="button_view_tickets">View Tickets</string>
     <string name="button_cancel_ticket">Cancel</string>
     <string name="button_save_ticket">Save</string>
 
@@ -28,6 +29,9 @@
     <string name="label_labor_type">Type:</string>
     <string name="label_labor_hours">Hours:</string>
     <string name="label_labor_description">Description:</string>
+    <string name="label_support_ticket_number">Ticket#</string>
+    <string name="label_support_ticket_client_name">Client Name</string>
+    <string name="label_support_ticket_date">YYYY/MM/DD</string>
 
     <!-- Hints for EditText-->
     <string name="hint_client_name">Client\'s Name</string>
@@ -35,7 +39,7 @@
     <string name="hint_client_phone">Client\'s Phone Number</string>
     <string name="hint_client_email">Client\'s Email</string>
     <string name="hint_labor_date">YYYY/MM/DD</string>
-    <string name="hint_labor_hours">Example: 2.5</string>
+    <string name="hint_labor_hours">Example: 2</string>
     <string name="hint_ticket_id">Current Ticket ID Number</string>
     <string name="hint_labor_description">Describe the work performed</string>
 </resources>

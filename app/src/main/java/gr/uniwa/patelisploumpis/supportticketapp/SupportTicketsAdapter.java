@@ -14,9 +14,9 @@ import java.util.List;
 
 public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAdapter.ViewHolder> {
 
-    private LayoutInflater inflater;
-    private Context context;
-    private List<SupportTicket> mSupportTicektList;
+    private final Context context;
+    private final LayoutInflater inflater;
+    private final List<SupportTicket> mSupportTicketList;
     private final OnItemClickListener itemClickListener;
 
     public interface OnItemClickListener {
@@ -26,7 +26,7 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
     public SupportTicketsAdapter(Context context, List<SupportTicket> list, OnItemClickListener listener) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.mSupportTicektList = list;
+        this.mSupportTicketList = list;
         this.itemClickListener = listener;
     }
 
@@ -40,19 +40,19 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
 
     @Override
     public void onBindViewHolder(@NonNull SupportTicketsAdapter.ViewHolder holder, int position) {
-        holder.bind(mSupportTicektList.get(position), itemClickListener);
+        holder.bind(mSupportTicketList.get(position), itemClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return mSupportTicektList.size();
+        return mSupportTicketList.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView pdfFileIconImageView;
-        private TextView pdfFileNameTextView, supportTicketClientNameTextView, supportTicketDateTextView;
+        private final ImageView pdfFileIconImageView;
+        private final TextView pdfFileNameTextView, supportTicketClientNameTextView, supportTicketDateTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

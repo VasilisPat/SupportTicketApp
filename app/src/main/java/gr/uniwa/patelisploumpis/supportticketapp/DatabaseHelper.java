@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 KEY_CLIENT_EMAIL + " TEXT NOT NULL," +
                 KEY_LABOR_DATE + " DATE NOT NULL," +
                 KEY_LABOR_TYPE + " TEXT NOT NULL," +
-                KEY_LABOR_HOURS + " REAL NOT NULL," +
+                KEY_LABOR_HOURS + " INTEGER NOT NULL," +
                 KEY_LABOR_DESCRIPTION + " TEXT" +
                 ")";
 

@@ -94,6 +94,8 @@ public class PDFGenerator extends AsyncTask<ATaskParams, Integer, Void> {
         }
 
         File pdfFile = new File(storageDir.toString(), "ticket#" + ticket.getTicketID() + ".pdf");
+        System.out.println(storageDir);
+        System.out.println(pdfFile);
 
         try{
             pdfDocument.writeTo(new FileOutputStream(pdfFile));

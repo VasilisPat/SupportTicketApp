@@ -1,6 +1,7 @@
 package gr.uniwa.patelisploumpis.supportticketapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,12 +50,14 @@ public class ViewTicketsActivity extends AppCompatActivity {
                 new SupportTicketsAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(SupportTicket item) {
-                        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket" + item.getTicketID() + ".pdf");
+                        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + item.getTicketID() + ".pdf");
+                        Uri uriPDFPath = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", pdfFile);
+
                         Intent openPDFIntent = new Intent(Intent.ACTION_VIEW);
                         openPDFIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         openPDFIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        openPDFIntent.setDataAndType(Uri.parse("content://" + pdfFile), "application/pdf");
-                        System.out.println(Uri.fromFile(pdfFile));
+                        openPDFIntent.setDataAndType(uriPDFPath, "application/pdf");
+
                         try{
                             startActivity(openPDFIntent);
                         }catch(ActivityNotFoundException e) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="NewTicketActivity" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:colorEdgeEffect">@color/primaryDarkColor</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/red_a700</item>
     </style>
 </resources>

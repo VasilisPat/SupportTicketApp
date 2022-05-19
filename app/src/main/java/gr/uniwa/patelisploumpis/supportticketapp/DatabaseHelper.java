@@ -184,6 +184,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return lastTicketID;
+
+    }
+
+        // Retrieve clientEmail on specific SupportTicket by tickedID
+        @SuppressLint("Range") // Suppress error "value must be >0" for get column index
+        public String getClientEmailByID(int ticketID) {
+            String clientEmail = "";
+            String CLIENT_EMAIL_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
+            cursor = sqLiteDatabaseR.rawQuery(CLIENT_EMAIL_SELECT_QUERY, null);
+
+            try{
+                if(cursor.moveToLast()){
+                    clientEmail = cursor.getString(cursor.getColumnIndex(KEY_CLIENT_EMAIL));
+                }
+            }catch(SQLiteException e){
+                e.printStackTrace();
+                Log.d("ERROR", "Error while trying to retrieve last ticket's id from database");
+            }finally{
+                if(cursor != null && !cursor.isClosed()) { cursor.close(); }
+            }
+
+        return clientEmail;
     }
 
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import java.text.SimpleDateFormat;
 
 public class NewTicketActivity extends AppCompatActivity {
 
@@ -70,6 +73,10 @@ public class NewTicketActivity extends AppCompatActivity {
             }
         });
 
+        // Set current date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        laborDateEditText.setText(sdf.format(Calendar.getInstance().getTime()));
+
         // Fill labor type spinner with options
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -96,24 +103,27 @@ public class NewTicketActivity extends AppCompatActivity {
                 laborHours = Integer.parseInt(laborHoursEditText.getText().toString());
                 laborDescription= laborDescriptionEditText.getText().toString();
 
-                ticket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
-                        laborDate, laborType,laborDescription);
+                if(checkRequiredEditText()){
+                    ticket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
+                            laborDate, laborType,laborDescription);
 
-                aSyncTask = new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... voids) {
-                        DatabaseHelper.getInstance(getApplicationContext()).addSupportTicket(ticket);
-                        return null;
-                    }
-                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null); //Parallel execution
+                    aSyncTask = new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            DatabaseHelper.getInstance(getApplicationContext()).addSupportTicket(ticket);
+                            return null;
+                        }
+                    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null); //Parallel execution
 
-                //Generate PDF file based on ticketID passed as argument
-                new PDFGenerator().execute(new ATaskParams(getApplicationContext(), Integer.valueOf(ticket.getTicketID())));
+                    //Generate PDF file based on ticketID passed as argument
+                    new PDFGenerator().execute(new ATaskParams(getApplicationContext(), Integer.valueOf(ticket.getTicketID())));
 
-                //TODO 1.1 Email to all
+                    //TODO 1.1 Email to all
 
-                Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -125,4 +135,30 @@ public class NewTicketActivity extends AppCompatActivity {
             }
         });
     }
+
+    private boolean checkRequiredEditText(){
+        boolean checkFlag = true;
+        if(clientName.matches("")){
+            clientNameEditText.setError("Client Name Required");
+            checkFlag = false;
+        }
+        if(clientAddress.equals("")){
+            clientAddressEditText.setError("Client Address Required");
+            checkFlag = false;
+        }
+        if(clientPhone.equals("")){
+            clientPhoneEditText.setError("Client Phone Required");
+            checkFlag = false;
+        }
+        if(clientEmail.equals("")){
+            clientEmailEditText.setError("Client Email Required");
+            checkFlag = false;
+        }
+        if(String.valueOf(laborHours).matches("")){
+            laborHoursEditText.setError("Labor Hours Required");
+            checkFlag = false;
+        }
+        return checkFlag;
+    }
+
 }

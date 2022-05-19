@@ -64,8 +64,8 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
 
         public void bind(final SupportTicket item, final OnItemClickListener listener) {
             pdfFileNameTextView.setText("Ticket#" + item.getTicketID());
-            supportTicketClientNameTextView.setText(item.getClientName());
-            supportTicketDateTextView.setText(item.getLaborDate());
+            supportTicketClientNameTextView.setText("Client Name: " + item.getClientName());
+            supportTicketDateTextView.setText("Date: " + item.getLaborDate());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

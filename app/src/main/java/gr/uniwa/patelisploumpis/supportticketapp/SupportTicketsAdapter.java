@@ -1,6 +1,9 @@
 package gr.uniwa.patelisploumpis.supportticketapp;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
 import java.util.List;
 
 public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAdapter.ViewHolder> {
@@ -48,10 +52,23 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
         return mSupportTicketList.size();
     }
 
+    private void deleteItem(SupportTicket ticket) {
+        mSupportTicketList.remove(ticket);
+        AsyncTask aSyncTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                DatabaseHelper.getInstance(context.getApplicationContext()).deleteSupportTicketByID(ticket.getTicketID());
+                return null;
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+        notifyDataSetChanged();
+    }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView pdfFileIconImageView;
+        private final ImageView pdfFileIconImageView, emailImageView, deleteImageView;
         private final TextView pdfFileNameTextView, supportTicketClientNameTextView, supportTicketDateTextView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -60,6 +77,8 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
             pdfFileNameTextView = itemView.findViewById(R.id.textView_pdf_file_name);
             supportTicketClientNameTextView = itemView.findViewById(R.id.textView_support_ticket_client_name);
             supportTicketDateTextView = itemView.findViewById(R.id.textView_support_ticket_date);
+            emailImageView = itemView.findViewById(R.id.imageView_email);
+            deleteImageView = itemView.findViewById(R.id.imageView_delete);
         }
 
         public void bind(final SupportTicket item, final OnItemClickListener listener) {
@@ -71,6 +90,22 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
                 @Override
                 public void onClick(View view) {
                     listener.onItemClick(item);
+                }
+            });
+
+            emailImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) { /*new EmailSender()*/ }
+            });
+
+            deleteImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    deleteItem(item);
+                    File file= new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + item.getTicketID() + ".pdf");
+                    if(file.exists()){
+                        file.delete();
+                    }
                 }
             });
         }

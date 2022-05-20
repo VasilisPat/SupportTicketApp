@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static Cursor cursor;
     private static DatabaseHelper dbInstance;
     private final SQLiteDatabase sqLiteDatabaseR = getReadableDatabase();
+    private final SQLiteDatabase sqLiteDatabaseW = getWritableDatabase();
 
     // Database Info
     private static final String DATABASE_NAME = "support_ticket_app";
@@ -77,9 +78,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Add new SupportTicket entry to DB
     public void addSupportTicket(SupportTicket ticket) {
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabaseW.beginTransaction();
 
-        sqLiteDatabase.beginTransaction();
         try{
             ContentValues cValues = new ContentValues();
             cValues.put(KEY_TECHNICIAN_NAME, ticket.getTechnicianName());
@@ -92,13 +92,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cValues.put(KEY_LABOR_HOURS, ticket.getLaborHours());
             cValues.put(KEY_LABOR_DESCRIPTION, ticket.getLaborDescription());
 
-            sqLiteDatabase.insertOrThrow(TABLE_TICKETS, null, cValues);
-            sqLiteDatabase.setTransactionSuccessful();
+            sqLiteDatabaseW.insertOrThrow(TABLE_TICKETS, null, cValues);
+            sqLiteDatabaseW.setTransactionSuccessful();
         }catch(SQLiteException e){
             e.printStackTrace();
             Log.d("ERROR", "Error while trying to add ticket to database");
         }finally{
-            sqLiteDatabase.endTransaction();
+            sqLiteDatabaseW.endTransaction();
         }
     }
 
@@ -137,8 +137,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Retrieve SupportTicket by tickedID
-    @SuppressLint("Range") // Suppress error "value must be >0" for get column index
-    public SupportTicket getTicketByID(int ticketID) {
+    @SuppressLint("Range")
+    public SupportTicket getTicketByID(String ticketID) {
         SupportTicket ticket = new SupportTicket();
         String TICKET_BY_ID_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
         cursor = sqLiteDatabaseR.rawQuery(TICKET_BY_ID_SELECT_QUERY, null);
@@ -162,11 +162,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }finally{
             if(cursor != null && !cursor.isClosed()) { cursor.close(); }
         }
-            return ticket;
+
+        return ticket;
     }
 
     // Retrieve the ticketID of the last SupportTicket stored in DB
-    @SuppressLint("Range") // Suppress error "value must be >0" for get column index
+    @SuppressLint("Range")
     public int getLastTicketID() {
         int lastTicketID = 0;
         String LAST_TICKET_ID_SELECT_QUERY = String.format("SELECT * FROM %s", TABLE_TICKETS);
@@ -184,12 +185,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return lastTicketID;
-
     }
 
         // Retrieve clientEmail on specific SupportTicket by tickedID
-        @SuppressLint("Range") // Suppress error "value must be >0" for get column index
-        public String getClientEmailByID(int ticketID) {
+        @SuppressLint("Range")
+        public String getClientEmailByID(String ticketID) {
             String clientEmail = "";
             String CLIENT_EMAIL_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
             cursor = sqLiteDatabaseR.rawQuery(CLIENT_EMAIL_SELECT_QUERY, null);
@@ -200,12 +200,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
             }catch(SQLiteException e){
                 e.printStackTrace();
-                Log.d("ERROR", "Error while trying to retrieve last ticket's id from database");
+                Log.d("ERROR", "Error while trying to retrieve client's email from database");
             }finally{
                 if(cursor != null && !cursor.isClosed()) { cursor.close(); }
             }
 
         return clientEmail;
+    }
+
+    // Delete SupportTicket entry from DB
+    public void deleteSupportTicketByID(String ticketID) {
+        String DELETE_TICKET_QUERY = String.format("DELETE FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
+
+        sqLiteDatabaseW.beginTransaction();
+        try{
+            sqLiteDatabaseW.execSQL(DELETE_TICKET_QUERY);
+            sqLiteDatabaseW.setTransactionSuccessful();
+        }catch(SQLiteException e){
+            e.printStackTrace();
+            Log.d("ERROR", "Error while trying to delete ticket from database");
+        }finally {
+            sqLiteDatabaseW.endTransaction();
+        }
     }
 
 }

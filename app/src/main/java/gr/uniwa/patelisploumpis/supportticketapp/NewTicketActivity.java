@@ -116,7 +116,7 @@ public class NewTicketActivity extends AppCompatActivity {
                     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null); //Parallel execution
 
                     //Generate PDF file based on ticketID passed as argument
-                    new PDFGenerator().execute(new ATaskParams(getApplicationContext(), Integer.valueOf(ticket.getTicketID())));
+                    new PDFGenerator().execute(new ATaskParams(getApplicationContext(), ticket.getTicketID()));
 
                     //TODO 1.1 Email to all
 

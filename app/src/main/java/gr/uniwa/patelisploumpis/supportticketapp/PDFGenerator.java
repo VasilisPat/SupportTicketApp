@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class PDFGenerator extends AsyncTask<ATaskParams, Integer, Void> {
+public class PDFGenerator extends AsyncTask<ATaskParams, String, Void> {
 
     private static Bitmap bitmap;
     private static final int PDFPageHeight = 780;
@@ -31,7 +31,7 @@ public class PDFGenerator extends AsyncTask<ATaskParams, Integer, Void> {
         return null;
     }
 
-    private void generatePDF(Context context, int ticketID) {
+    private void generatePDF(Context context, String ticketID) {
 
         PdfDocument pdfDocument = new PdfDocument();
         Paint PDFPaint = new Paint();

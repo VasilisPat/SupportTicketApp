@@ -5,9 +5,9 @@ import android.content.Context;
 public class ATaskParams {
 
     private Context mAppContext;
-    private int mTicketID;
+    private String mTicketID;
 
-    public ATaskParams(Context appContext, int ticketID) {
+    public ATaskParams(Context appContext, String ticketID) {
         this.mAppContext = appContext;
         this.mTicketID = ticketID;
     }
@@ -15,10 +15,10 @@ public class ATaskParams {
     // Getters
     public Context getAppContext() { return mAppContext; }
 
-    public int getTicketID() { return mTicketID; }
+    public String getTicketID() { return mTicketID; }
 
     //Setters
     public void setAppContext(Context mAppContext) { this.mAppContext = mAppContext; }
 
-    public void setTicketID(int mTicketID) { this.mTicketID = mTicketID; }
+    public void setTicketID(String mTicketID) { this.mTicketID = mTicketID; }
 }

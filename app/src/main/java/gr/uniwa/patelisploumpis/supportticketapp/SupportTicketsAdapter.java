@@ -3,7 +3,6 @@ package gr.uniwa.patelisploumpis.supportticketapp;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,9 +101,9 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
                 @Override
                 public void onClick(View view) {
                     deleteItem(item);
-                    File file= new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + item.getTicketID() + ".pdf");
-                    if(file.exists()){
-                        file.delete();
+                    File pdfFile= new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + item.getTicketID() + ".pdf");
+                    if(pdfFile.exists()){
+                        pdfFile.delete();
                     }
                 }
             });

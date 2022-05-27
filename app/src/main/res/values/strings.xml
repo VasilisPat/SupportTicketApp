@@ -6,8 +6,6 @@
     <!-- Description -->
     <string name="description_imageView_support_ticket_logo">Support Ticket Logo</string>
     <string name="description_imageView_new_ticket_icon">New Ticket Icon</string>
-    <string name="description_spinner_labor_type_content">Select Work Type</string>
-    <string name="description_spinner_ticket_id_content">Ticket ID</string>
     <string name="description_imageView_pdf_file_icon">PDF File Icon</string>
 
     <!-- Buttons -->
@@ -18,28 +16,21 @@
 
     <!-- Labels for TextView -->
     <string name="label_technician"><u>Technician</u></string>
-    <string name="label_ticket_id">Ticket #:</string>
-    <string name="label_technician_name">Name:</string>
     <string name="label_client"><u>Client</u></string>
-    <string name="label_client_address">Address:</string>
-    <string name="label_client_phone">Phone:</string>
-    <string name="label_client_email">Email:</string>
     <string name="label_labor"><u>Labor</u></string>
-    <string name="label_labor_date">Date:</string>
-    <string name="label_labor_type">Type:</string>
-    <string name="label_labor_hours">Hours:</string>
-    <string name="label_labor_description">Description:</string>
     <string name="label_support_ticket_number">Ticket#</string>
     <string name="label_support_ticket_client_name">Client Name</string>
     <string name="label_support_ticket_date">YYYY/MM/DD</string>
 
     <!-- Hints for EditText-->
+    <string name="hint_ticket_id">Ticket ID</string>
+    <string name="hint_technician_name">Technician\'s Name</string>
     <string name="hint_client_name">Client\'s Name</string>
     <string name="hint_client_address">Client\'s Address</string>
     <string name="hint_client_phone">Client\'s Phone Number</string>
     <string name="hint_client_email">Client\'s Email</string>
-    <string name="hint_labor_date">YYYY/MM/DD</string>
-    <string name="hint_labor_hours">Minimum: 1</string>
-    <string name="hint_ticket_id">Current Ticket ID Number</string>
-    <string name="hint_labor_description">Describe the work performed</string>
+    <string name="hint_labor_date">Labor Date</string>
+    <string name="hint_labor_hours">Labor Hours</string>
+    <string name="hint_labor_type">Labor Type</string>
+    <string name="hint_labor_description">Labor Description</string>
 </resources>

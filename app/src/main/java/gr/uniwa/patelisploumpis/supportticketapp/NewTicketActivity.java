@@ -51,21 +51,22 @@ public class NewTicketActivity extends AppCompatActivity {
         // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
+        // TODO 1.1 Replace AsyncTask on UI Load (Applies to Recycler View Also)
+        // TODO 1.2 Localize Strings to Greek
         aSyncTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 // Set last support ticket number
-                ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
+                //ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
                 return null;
             }
         }.execute();
 
-        // Fill technician name spinner with options
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Fill technician name autocompleteTextView with options
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names,  android.R.layout.simple_dropdown_item_1line);
         technicianNameAutocomplete.setAdapter(adapter1);
 
-        // Technician name spinner item selection listener
+        // Technician name autocompleteTextView item selection listener
         technicianNameAutocomplete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 technicianName = parent.getItemAtPosition(pos).toString();
@@ -74,16 +75,12 @@ public class NewTicketActivity extends AppCompatActivity {
             }
         });
 
-        // Set current date
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        laborDateEditText.setText(sdf.format(Calendar.getInstance().getTime()));
 
-        // Fill labor type spinner with options
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Fill labor type autocompleteTextView with options
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_dropdown_item_1line);
         laborTypeAutocomplete.setAdapter(adapter2);
 
-        // Labor type spinner item selection listener
+        // Labor type autocompleteTextView item selection listener
         laborTypeAutocomplete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 laborType = parent.getItemAtPosition(pos).toString();
@@ -91,6 +88,10 @@ public class NewTicketActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        // Set current date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        laborDateEditText.setText(sdf.format(Calendar.getInstance().getTime()));
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +120,7 @@ public class NewTicketActivity extends AppCompatActivity {
                     //Generate PDF file based on ticketID passed as argument
                     new PDFGenerator().execute(new ATaskParams(getApplicationContext(), ticket.getTicketID()));
 
-                    //TODO 1.1 Email to all
+                    //TODO 3.1 Email to all
 
                     Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
                     startActivity(intent);

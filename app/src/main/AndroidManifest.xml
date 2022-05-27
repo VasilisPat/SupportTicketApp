@@ -15,7 +15,7 @@
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,13 +28,13 @@
         <activity
             android:name=".NewTicketActivity"
             android:exported="false"
-            android:theme="@style/NewTicketActivity"
+            android:theme="@style/NewTicketActivityStyle"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ViewTicketsActivity"
             android:exported="false"
-            android:theme="@style/ViewTicketsActivity"
+            android:theme="@style/ViewTicketsActivityStyle"
             android:parentActivityName=".MainActivity"/>
 
         <provider

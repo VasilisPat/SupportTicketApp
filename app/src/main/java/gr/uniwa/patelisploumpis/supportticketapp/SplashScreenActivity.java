@@ -40,7 +40,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     Log.e("Error", "Error starting MainActivity");
                 }
             }
-        }, 3000);
+        }, 2600);
 
     }
 }

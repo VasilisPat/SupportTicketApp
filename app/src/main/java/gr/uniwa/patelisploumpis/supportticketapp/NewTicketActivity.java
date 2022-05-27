@@ -8,23 +8,24 @@ import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 
 public class NewTicketActivity extends AppCompatActivity {
 
     private AsyncTask aSyncTask;
+    private AutoCompleteTextView technicianNameAutocomplete, laborTypeAutocomplete;
     private Button cancelButton, saveButton;
     private EditText ticketIDEditText, clientNameEditText, clientAddressEditText,
             clientPhoneEditText, clientEmailEditText, laborDateEditText, laborHoursEditText, laborDescriptionEditText;
     private int laborHours;
-    private Spinner technicianNameSpinner,laborTypeSpinner;
     private String ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
             laborType, laborDescription;
     private SupportTicket ticket;
@@ -34,16 +35,16 @@ public class NewTicketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ticket);
 
-        ticketIDEditText = findViewById(R.id.editTextNumber_ticket_id);
-        technicianNameSpinner = findViewById(R.id.spinner_technician_name);
-        clientNameEditText = findViewById(R.id.editTextText_client_name);
+        ticketIDEditText = findViewById(R.id.editText_ticket_id);
+        technicianNameAutocomplete = findViewById(R.id.autocompleteTextView_technician_name);
+        clientNameEditText = findViewById(R.id.editText_client_name);
         clientAddressEditText = findViewById(R.id.editText_client_address);
-        clientPhoneEditText = findViewById(R.id.editTextPhone_client_phone);
-        clientEmailEditText = findViewById(R.id.editTextEmail_client_email);
-        laborDateEditText = findViewById(R.id.editTextDate_labor_date);
-        laborTypeSpinner = findViewById(R.id.spinner_labor_type);
-        laborHoursEditText = findViewById(R.id.editTextNumberDecimal_labor_hours);
-        laborDescriptionEditText = findViewById(R.id.editTextMultiLine_labor_description);
+        clientPhoneEditText = findViewById(R.id.editText_client_phone);
+        clientEmailEditText = findViewById(R.id.editText_client_email);
+        laborDateEditText = findViewById(R.id.editText_labor_date);
+        laborTypeAutocomplete = findViewById(R.id.autocompleteTextView_labor_type);
+        laborHoursEditText = findViewById(R.id.editText_labor_hours);
+        laborDescriptionEditText = findViewById(R.id.editText_labor_description);
         cancelButton = findViewById(R.id.button_cancel_ticket);
         saveButton = findViewById(R.id.button_save_ticket);
 
@@ -57,15 +58,15 @@ public class NewTicketActivity extends AppCompatActivity {
                 ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
                 return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+        }.execute();
 
         // Fill technician name spinner with options
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        technicianNameSpinner.setAdapter(adapter1);
+        technicianNameAutocomplete.setAdapter(adapter1);
 
         // Technician name spinner item selection listener
-        technicianNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        technicianNameAutocomplete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 technicianName = parent.getItemAtPosition(pos).toString();
             }
@@ -80,10 +81,10 @@ public class NewTicketActivity extends AppCompatActivity {
         // Fill labor type spinner with options
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        laborTypeSpinner.setAdapter(adapter2);
+        laborTypeAutocomplete.setAdapter(adapter2);
 
         // Labor type spinner item selection listener
-        laborTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        laborTypeAutocomplete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 laborType = parent.getItemAtPosition(pos).toString();
             }
@@ -138,23 +139,23 @@ public class NewTicketActivity extends AppCompatActivity {
 
     private boolean checkRequiredEditText(){
         boolean checkFlag = true;
-        if(clientName.matches("")){
+        if(TextUtils.isEmpty(clientName)){
             clientNameEditText.setError("Client Name Required");
             checkFlag = false;
         }
-        if(clientAddress.equals("")){
+        if(TextUtils.isEmpty(clientAddress)){
             clientAddressEditText.setError("Client Address Required");
             checkFlag = false;
         }
-        if(clientPhone.equals("")){
+        if(TextUtils.isEmpty(clientPhone)){
             clientPhoneEditText.setError("Client Phone Required");
             checkFlag = false;
         }
-        if(clientEmail.equals("")){
+        if(TextUtils.isEmpty(clientEmail)){
             clientEmailEditText.setError("Client Email Required");
             checkFlag = false;
         }
-        if(String.valueOf(laborHours).matches("")){
+        if(TextUtils.isEmpty(String.valueOf(laborHours))){
             laborHoursEditText.setError("Labor Hours Required");
             checkFlag = false;
         }

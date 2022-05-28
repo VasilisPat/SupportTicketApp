@@ -1,29 +1,27 @@
 <resources>
-    <string name="app_name">Support Ticket App</string>
-    <string name="app_version">v1.0</string>
+    <string name="app_name" translatable="false">Support Ticket App</string>
+    <string name="app_version" translatable="false">v1.0</string>
     <string name="app_info">© 2022 Patelis - Ploumpis</string>
 
     <!-- Description -->
-    <string name="description_imageView_support_ticket_logo">Support Ticket Logo</string>
-    <string name="description_imageView_new_ticket_icon">New Ticket Icon</string>
-    <string name="description_imageView_pdf_file_icon">PDF File Icon</string>
+    <string name="description_imageView_support_ticket_logo" translatable="false">Support Ticket Logo</string>
+    <string name="description_imageView_new_ticket_icon" translatable="false">New Ticket Icon</string>
+    <string name="description_imageView_pdf_file_icon" translatable="false">PDF File Icon</string>
 
     <!-- Buttons -->
     <string name="button_new_ticket">New Ticket</string>
     <string name="button_view_tickets">View Tickets</string>
     <string name="button_cancel_ticket">Cancel</string>
-    <string name="button_save_ticket">Save</string>
 
     <!-- Labels for TextView -->
     <string name="label_technician"><u>Technician</u></string>
     <string name="label_client"><u>Client</u></string>
-    <string name="label_labor"><u>Labor</u></string>
-    <string name="label_support_ticket_number">Ticket#</string>
+    <string name="label_support_ticket_number" translatable="false">Ticket#</string>
     <string name="label_support_ticket_client_name">Client Name</string>
     <string name="label_support_ticket_date">YYYY/MM/DD</string>
 
     <!-- Hints for EditText-->
-    <string name="hint_ticket_id">Ticket ID</string>
+    <string name="hint_ticket_id" translatable="false">Ticket ID</string>
     <string name="hint_technician_name">Technician\'s Name</string>
     <string name="hint_client_name">Client\'s Name</string>
     <string name="hint_client_address">Client\'s Address</string>
@@ -33,4 +31,6 @@
     <string name="hint_labor_hours">Labor Hours</string>
     <string name="hint_labor_type">Labor Type</string>
     <string name="hint_labor_description">Labor Description</string>
+    <string name="button_save_ticket">Save</string>
+    <string name="label_labor"><u>Labor</u></string>
 </resources>

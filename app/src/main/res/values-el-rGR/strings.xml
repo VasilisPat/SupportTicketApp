@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_info">© 2022 Πατέλης - Πλούμπης</string>
+    <string name="button_new_ticket">Νέα Καταχώρηση</string>
+    <string name="button_view_tickets">Προβολή Καταχωρήσεων</string>
+    <string name="button_cancel_ticket">Ακύρωση</string>
+    <string name="button_save_ticket">Αποθήκευση</string>
+    <string name="label_technician"><u>Τεχνικός</u></string>
+    <string name="label_client"><u>Πελάτης</u></string>
+    <string name="label_labor"><u>Εργασία</u></string>
+    <string name="label_support_ticket_client_name">Όνομα Πελάτη</string>
+    <string name="label_support_ticket_date">Ημερομηνία Εργασίας</string>
+    <string name="hint_technician_name">Όνομα Τεχνικού</string>
+    <string name="hint_client_name">Όνομα Πελάτη</string>
+    <string name="hint_client_address">Διεύθυνση Πελάτη</string>
+    <string name="hint_client_phone">Τηλέφωνο Πελάτη</string>
+    <string name="hint_client_email">Email Πελάτη</string>
+    <string name="hint_labor_date">Ημερομηνία Εργασίας</string>
+    <string name="hint_labor_hours">Ώρες Εργασίας</string>
+    <string name="hint_labor_type">Είδος Εργασίας</string>
+    <string name="hint_labor_description">Περιγραφή Εργασίας</string>
+</resources>

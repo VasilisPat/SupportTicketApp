@@ -52,6 +52,7 @@ public class NewTicketActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
         // TODO 1.1 Replace AsyncTask on UI Load (Applies to Recycler View Also)
+        // TODO 1.3 Fix UI MisLoc on API>27
         aSyncTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {

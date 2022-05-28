@@ -323,29 +323,26 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:backgroundTint="@color/primaryLightColor"
                 android:id="@+id/button_save_ticket"
                 android:layout_width="106dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="79dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginBottom="22dp"
+                android:backgroundTint="@color/primaryLightColor"
                 android:text="@string/button_save_ticket"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.055"
-                app:layout_constraintStart_toEndOf="@+id/button_cancel_ticket"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout_labor_description" />
 
             <Button
-                android:backgroundTint="@color/primaryLightColor"
                 android:id="@+id/button_cancel_ticket"
                 android:layout_width="106dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="22dp"
+                android:backgroundTint="@color/primaryLightColor"
                 android:text="@string/button_cancel_ticket"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

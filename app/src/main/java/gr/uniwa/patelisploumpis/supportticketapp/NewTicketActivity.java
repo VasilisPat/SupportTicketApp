@@ -52,19 +52,19 @@ public class NewTicketActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
         // TODO 1.1 Replace AsyncTask on UI Load (Applies to Recycler View Also)
-        // TODO 1.2 Localize Strings to Greek
         aSyncTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 // Set last support ticket number
-                //ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
+                ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
                 return null;
             }
-        }.execute();
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null); //Parallel execution;
 
         // Fill technician name autocompleteTextView with options
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names,  android.R.layout.simple_dropdown_item_1line);
         technicianNameAutocomplete.setAdapter(adapter1);
+        technicianNameAutocomplete.setText(adapter1.getItem(0),false);
 
         // Technician name autocompleteTextView item selection listener
         technicianNameAutocomplete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -79,6 +79,7 @@ public class NewTicketActivity extends AppCompatActivity {
         // Fill labor type autocompleteTextView with options
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_dropdown_item_1line);
         laborTypeAutocomplete.setAdapter(adapter2);
+        laborTypeAutocomplete.setText(adapter2.getItem(0),false);
 
         // Labor type autocompleteTextView item selection listener
         laborTypeAutocomplete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -3,7 +3,6 @@ package gr.uniwa.patelisploumpis.supportticketapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.os.AsyncTask;
@@ -51,7 +50,7 @@ public class NewTicketActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.button_save_ticket);
 
         // Colorize action bar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.primaryLightColor)));
 
         // TODO 1.1 Fix Empty String Checking
         // TODO 1.2 Fix UI MisLoc on API>27

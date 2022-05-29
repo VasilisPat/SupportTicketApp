@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ViewTicketsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_tickets);
 
         // Colorize action bar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3949AB")));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.indigo_600)));
 
         ticketsRecyclerView = findViewById(R.id.recyclerView_support_tickets);
 
@@ -62,6 +62,7 @@ public class ViewTicketsActivity extends AppCompatActivity {
                         }catch(ActivityNotFoundException e) {
                             e.printStackTrace();
                             Log.e("ERROR", "PDF File can't be opened");
+                            Toast.makeText(getApplicationContext(), "Couldn't Open PDF File", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

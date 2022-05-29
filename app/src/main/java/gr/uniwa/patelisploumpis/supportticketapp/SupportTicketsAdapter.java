@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAdapter.ViewHolder> {
 
-    private final Context context;
+    private final Context mContext;
     private final LayoutInflater inflater;
     private final List<SupportTicket> mSupportTicketList;
     private final OnItemClickListener itemClickListener;
@@ -28,7 +28,7 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
 
     public SupportTicketsAdapter(Context context, List<SupportTicket> list, OnItemClickListener listener) {
         inflater = LayoutInflater.from(context);
-        this.context = context;
+        this.mContext = context;
         this.mSupportTicketList = list;
         this.itemClickListener = listener;
     }
@@ -51,12 +51,18 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
         return mSupportTicketList.size();
     }
 
+    public void updateList(List<SupportTicket> supportTicketList) {
+        mSupportTicketList.clear();
+        mSupportTicketList.addAll(supportTicketList);
+        notifyDataSetChanged();
+    }
+
     private void deleteItem(SupportTicket ticket) {
         mSupportTicketList.remove(ticket);
         AsyncTask aSyncTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                DatabaseHelper.getInstance(context.getApplicationContext()).deleteSupportTicketByID(ticket.getTicketID());
+                DatabaseHelper.getInstance(mContext.getApplicationContext()).deleteSupportTicketByID(ticket.getTicketID());
                 return null;
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
@@ -64,10 +70,9 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
     }
 
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView pdfFileIconImageView, emailImageView, deleteImageView;
+        private final ImageView pdfFileIconImageView, emailSupportTicketImageView, deleteSupportTicketImageView;
         private final TextView pdfFileNameTextView, supportTicketClientNameTextView, supportTicketDateTextView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -76,32 +81,32 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
             pdfFileNameTextView = itemView.findViewById(R.id.textView_pdf_file_name);
             supportTicketClientNameTextView = itemView.findViewById(R.id.textView_support_ticket_client_name);
             supportTicketDateTextView = itemView.findViewById(R.id.textView_support_ticket_date);
-            emailImageView = itemView.findViewById(R.id.imageView_email);
-            deleteImageView = itemView.findViewById(R.id.imageView_delete);
+            emailSupportTicketImageView = itemView.findViewById(R.id.imageView_email);
+            deleteSupportTicketImageView = itemView.findViewById(R.id.imageView_delete);
         }
 
-        public void bind(final SupportTicket item, final OnItemClickListener listener) {
-            pdfFileNameTextView.setText("Ticket#" + item.getTicketID());
-            supportTicketClientNameTextView.setText("Client Name: " + item.getClientName());
-            supportTicketDateTextView.setText("Date: " + item.getLaborDate());
+        public void bind(final SupportTicket supportTicket, final OnItemClickListener listener) {
+            pdfFileNameTextView.setText("Ticket#" + supportTicket.getTicketID());
+            supportTicketClientNameTextView.setText("Client Name: " + supportTicket.getClientName());
+            supportTicketDateTextView.setText("Date: " + supportTicket.getLaborDate());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(item);
+                    listener.onItemClick(supportTicket);
                 }
             });
 
-            emailImageView.setOnClickListener(new View.OnClickListener() {
+            emailSupportTicketImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { /*new EmailSender()*/ }
             });
 
-            deleteImageView.setOnClickListener(new View.OnClickListener() {
+            deleteSupportTicketImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    deleteItem(item);
-                    File pdfFile= new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + item.getTicketID() + ".pdf");
+                    deleteItem(supportTicket);
+                    File pdfFile= new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + supportTicket.getTicketID() + ".pdf");
                     if(pdfFile.exists()){
                         pdfFile.delete();
                     }

@@ -77,20 +77,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Add new SupportTicket entry to DB
-    public void addSupportTicket(SupportTicket ticket) {
+    public void addSupportTicket(SupportTicket supportTicket) {
         sqLiteDatabaseW.beginTransaction();
-
         try{
             ContentValues cValues = new ContentValues();
-            cValues.put(KEY_TECHNICIAN_NAME, ticket.getTechnicianName());
-            cValues.put(KEY_CLIENT_NAME, ticket.getClientName());
-            cValues.put(KEY_CLIENT_ADDRESS, ticket.getClientAddress());
-            cValues.put(KEY_CLIENT_PHONE, ticket.getClientPhone());
-            cValues.put(KEY_CLIENT_EMAIL, ticket.getClientEmail());
-            cValues.put(KEY_LABOR_DATE, ticket.getLaborDate());
-            cValues.put(KEY_LABOR_TYPE, ticket.getLaborType());
-            cValues.put(KEY_LABOR_HOURS, ticket.getLaborHours());
-            cValues.put(KEY_LABOR_DESCRIPTION, ticket.getLaborDescription());
+            cValues.put(KEY_TECHNICIAN_NAME, supportTicket.getTechnicianName());
+            cValues.put(KEY_CLIENT_NAME, supportTicket.getClientName());
+            cValues.put(KEY_CLIENT_ADDRESS, supportTicket.getClientAddress());
+            cValues.put(KEY_CLIENT_PHONE, supportTicket.getClientPhone());
+            cValues.put(KEY_CLIENT_EMAIL, supportTicket.getClientEmail());
+            cValues.put(KEY_LABOR_DATE, supportTicket.getLaborDate());
+            cValues.put(KEY_LABOR_TYPE, supportTicket.getLaborType());
+            cValues.put(KEY_LABOR_HOURS, supportTicket.getLaborHours());
+            cValues.put(KEY_LABOR_DESCRIPTION, supportTicket.getLaborDescription());
 
             sqLiteDatabaseW.insertOrThrow(TABLE_TICKETS, null, cValues);
             sqLiteDatabaseW.setTransactionSuccessful();
@@ -105,65 +104,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Retrieve all SupportTickets stored in DB
     @SuppressLint("Range") // Suppress error "value must be >0" for get column index
     public List<SupportTicket> getAllTickets() {
-        List<SupportTicket> tickets = new ArrayList<>();
-        String TICKETS_SELECT_QUERY = String.format("SELECT * FROM %s", TABLE_TICKETS);
-        cursor = sqLiteDatabaseR.rawQuery(TICKETS_SELECT_QUERY, null);
+        List<SupportTicket> supportTicketList = new ArrayList<>();
+        String ALL_TICKETS_SELECT_QUERY = String.format("SELECT * FROM %s", TABLE_TICKETS);
+        cursor = sqLiteDatabaseR.rawQuery(ALL_TICKETS_SELECT_QUERY, null);
 
         try{
             if(cursor.moveToFirst()){
                 do{
-                    SupportTicket ticket = new SupportTicket();
-                    ticket.setTicketID(cursor.getString(cursor.getColumnIndex(KEY_TICKET_ID)));
-                    ticket.setTechnicianName(cursor.getString(cursor.getColumnIndex(KEY_TECHNICIAN_NAME)));
-                    ticket.setClientName(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_NAME)));
-                    ticket.setClientAddress(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_ADDRESS)));
-                    ticket.setClientPhone(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_PHONE)));
-                    ticket.setClientEmail(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_EMAIL)));
-                    ticket.setLaborDate(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DATE)));
-                    ticket.setLaborType(cursor.getString(cursor.getColumnIndex(KEY_LABOR_TYPE)));
-                    ticket.setLaborHours(cursor.getInt(cursor.getColumnIndex(KEY_LABOR_HOURS)));
-                    ticket.setLaborDescription(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DESCRIPTION)));
-                    tickets.add(ticket);
+                    SupportTicket supportTicket = new SupportTicket();
+                    supportTicket.setTicketID(cursor.getString(cursor.getColumnIndex(KEY_TICKET_ID)));
+                    supportTicket.setTechnicianName(cursor.getString(cursor.getColumnIndex(KEY_TECHNICIAN_NAME)));
+                    supportTicket.setClientName(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_NAME)));
+                    supportTicket.setClientAddress(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_ADDRESS)));
+                    supportTicket.setClientPhone(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_PHONE)));
+                    supportTicket.setClientEmail(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_EMAIL)));
+                    supportTicket.setLaborDate(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DATE)));
+                    supportTicket.setLaborType(cursor.getString(cursor.getColumnIndex(KEY_LABOR_TYPE)));
+                    supportTicket.setLaborHours(cursor.getInt(cursor.getColumnIndex(KEY_LABOR_HOURS)));
+                    supportTicket.setLaborDescription(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DESCRIPTION)));
+                    supportTicketList.add(supportTicket);
                 }while(cursor.moveToNext());
             }
         }catch(SQLiteException e){
             e.printStackTrace();
             Log.d("ERROR", "Error while trying to retrieve tickets list from database");
         }finally{
-            if(cursor != null && !cursor.isClosed()) { cursor.close(); }
+            if(cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
         }
 
-        return tickets;
+        return supportTicketList;
     }
 
     // Retrieve SupportTicket by tickedID
     @SuppressLint("Range")
     public SupportTicket getTicketByID(String ticketID) {
-        SupportTicket ticket = new SupportTicket();
+        SupportTicket supportTicket = new SupportTicket();
         String TICKET_BY_ID_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
         cursor = sqLiteDatabaseR.rawQuery(TICKET_BY_ID_SELECT_QUERY, null);
 
         try{
             if(cursor.moveToLast()){
-                ticket.setTicketID(cursor.getString(cursor.getColumnIndex(KEY_TICKET_ID)));
-                ticket.setTechnicianName(cursor.getString(cursor.getColumnIndex(KEY_TECHNICIAN_NAME)));
-                ticket.setClientName(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_NAME)));
-                ticket.setClientAddress(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_ADDRESS)));
-                ticket.setClientPhone(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_PHONE)));
-                ticket.setClientEmail(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_EMAIL)));
-                ticket.setLaborDate(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DATE)));
-                ticket.setLaborType(cursor.getString(cursor.getColumnIndex(KEY_LABOR_TYPE)));
-                ticket.setLaborHours(cursor.getInt(cursor.getColumnIndex(KEY_LABOR_HOURS)));
-                ticket.setLaborDescription(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DESCRIPTION)));
+                supportTicket.setTicketID(cursor.getString(cursor.getColumnIndex(KEY_TICKET_ID)));
+                supportTicket.setTechnicianName(cursor.getString(cursor.getColumnIndex(KEY_TECHNICIAN_NAME)));
+                supportTicket.setClientName(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_NAME)));
+                supportTicket.setClientAddress(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_ADDRESS)));
+                supportTicket.setClientPhone(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_PHONE)));
+                supportTicket.setClientEmail(cursor.getString(cursor.getColumnIndex(KEY_CLIENT_EMAIL)));
+                supportTicket.setLaborDate(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DATE)));
+                supportTicket.setLaborType(cursor.getString(cursor.getColumnIndex(KEY_LABOR_TYPE)));
+                supportTicket.setLaborHours(cursor.getInt(cursor.getColumnIndex(KEY_LABOR_HOURS)));
+                supportTicket.setLaborDescription(cursor.getString(cursor.getColumnIndex(KEY_LABOR_DESCRIPTION)));
             }
         }catch(SQLiteException e){
             e.printStackTrace();
             Log.d("ERROR", "Error while trying to retrieve ticket from database");
         }finally{
-            if(cursor != null && !cursor.isClosed()) { cursor.close(); }
+            if(cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
         }
 
-        return ticket;
+        return supportTicket;
     }
 
     // Retrieve the ticketID of the last SupportTicket stored in DB
@@ -181,7 +184,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
             Log.d("ERROR", "Error while trying to retrieve last ticket's id from database");
         }finally{
-            if(cursor != null && !cursor.isClosed()) { cursor.close(); }
+            if(cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
         }
 
         return lastTicketID;
@@ -193,7 +198,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String clientEmail = "";
             String CLIENT_EMAIL_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
             cursor = sqLiteDatabaseR.rawQuery(CLIENT_EMAIL_SELECT_QUERY, null);
-
+            
             try{
                 if(cursor.moveToLast()){
                     clientEmail = cursor.getString(cursor.getColumnIndex(KEY_CLIENT_EMAIL));
@@ -202,16 +207,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 e.printStackTrace();
                 Log.d("ERROR", "Error while trying to retrieve client's email from database");
             }finally{
-                if(cursor != null && !cursor.isClosed()) { cursor.close(); }
+                if(cursor != null && !cursor.isClosed()) {
+                    cursor.close();
+                }
             }
-
+            
         return clientEmail;
     }
 
     // Delete SupportTicket entry from DB
     public void deleteSupportTicketByID(String ticketID) {
         String DELETE_TICKET_QUERY = String.format("DELETE FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
-
         sqLiteDatabaseW.beginTransaction();
         try{
             sqLiteDatabaseW.execSQL(DELETE_TICKET_QUERY);

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -20,7 +21,8 @@ import java.text.SimpleDateFormat;
 
 public class NewTicketActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView technicianNameAutocomplete, laborTypeAutocomplete;
+    private AsyncTask aSyncTask;
+    private AutoCompleteTextView technicianNameAutocompleteTextView, laborTypeAutocompleteTextView;
     private Button cancelButton, saveButton;
     private EditText ticketIDEditText, clientNameEditText, clientAddressEditText,
             clientPhoneEditText, clientEmailEditText, laborDateEditText, laborHoursEditText, laborDescriptionEditText;
@@ -28,7 +30,7 @@ public class NewTicketActivity extends AppCompatActivity {
     private int laborHours;
     private String ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
             laborType, laborDescription;
-    private SupportTicket ticket;
+    private SupportTicket supportTicket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +38,13 @@ public class NewTicketActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_ticket);
 
         ticketIDEditText = findViewById(R.id.editText_ticket_id);
-        technicianNameAutocomplete = findViewById(R.id.autocompleteTextView_technician_name);
+        technicianNameAutocompleteTextView = findViewById(R.id.autocompleteTextView_technician_name);
         clientNameEditText = findViewById(R.id.editText_client_name);
         clientAddressEditText = findViewById(R.id.editText_client_address);
         clientPhoneEditText = findViewById(R.id.editText_client_phone);
         clientEmailEditText = findViewById(R.id.editText_client_email);
         laborDateEditText = findViewById(R.id.editText_labor_date);
-        laborTypeAutocomplete = findViewById(R.id.autocompleteTextView_labor_type);
+        laborTypeAutocompleteTextView = findViewById(R.id.autocompleteTextView_labor_type);
         laborHoursEditText = findViewById(R.id.editText_labor_hours);
         laborDescriptionEditText = findViewById(R.id.editText_labor_description);
         cancelButton = findViewById(R.id.button_cancel_ticket);
@@ -51,9 +53,8 @@ public class NewTicketActivity extends AppCompatActivity {
         // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF5131")));
 
-        // TODO 1.1 Replace AsyncTask on UI Load (Applies to Recycler View Also)
-        // TODO 1.2 Fix Empty String Checking
-        // TODO 1.3 Fix UI MisLoc on API>27
+        // TODO 1.1 Fix Empty String Checking
+        // TODO 1.2 Fix UI MisLoc on API>27
 
         handler.post(new Runnable() {
             @Override
@@ -63,27 +64,23 @@ public class NewTicketActivity extends AppCompatActivity {
             }
         });
 
-
-        ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
-
         // Fill technician name autocompleteTextView with options
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names,  android.R.layout.simple_dropdown_item_1line);
-        technicianNameAutocomplete.setAdapter(adapter1);
+        technicianNameAutocompleteTextView.setAdapter(adapter1);
 
         // Technician name autocompleteTextView item selection listener
-        technicianNameAutocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        technicianNameAutocompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 technicianName = parent.getItemAtPosition(pos).toString();
             }
         });
 
-
         // Fill labor type autocompleteTextView with options
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.labor_type, android.R.layout.simple_dropdown_item_1line);
-        laborTypeAutocomplete.setAdapter(adapter2);
+        laborTypeAutocompleteTextView.setAdapter(adapter2);
 
         // Labor type autocompleteTextView item selection listener
-        laborTypeAutocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        laborTypeAutocompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 laborType = parent.getItemAtPosition(pos).toString();
             }
@@ -106,19 +103,22 @@ public class NewTicketActivity extends AppCompatActivity {
                 laborDescription= laborDescriptionEditText.getText().toString();
 
                 if(checkRequiredEditText()){
-                    ticket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
+                    supportTicket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,
                             laborDate, laborType,laborDescription);
 
-                    handler.post(new Runnable() {
+                    aSyncTask = new AsyncTask<Void, Void, Void>() {
                         @Override
-                        public void run() {
-                            DatabaseHelper.getInstance(getApplicationContext()).addSupportTicket(ticket);
+                        protected Void doInBackground(Void... voids) {
+                            DatabaseHelper.getInstance(getApplicationContext()).addSupportTicket(supportTicket);
+                            return null;
                         }
-                    });
 
-                    new PDFGenerator().execute(new ATaskParams(getApplicationContext(), ticket.getTicketID()));
-
-                    //TODO 3.1 Email to all
+                        @Override
+                        protected void onPostExecute(Void unused) {
+                            new PDFGenerator().execute(new ASyncTaskParams(getApplicationContext(), supportTicket.getTicketID()));
+                            //TODO 3.1 Email to all
+                        }
+                    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 
                     Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
                     startActivity(intent);

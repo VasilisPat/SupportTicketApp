@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -108,7 +109,11 @@ public class SupportTicketsRecylerAdapter extends RecyclerView.Adapter<SupportTi
                     deleteItem(supportTicket);
                     File pdfFile= new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + supportTicket.getTicketID() + ".pdf");
                     if(pdfFile.exists()){
-                        pdfFile.delete();
+                        if(pdfFile.delete()) {
+                            Toast.makeText(mContext, "Deleted Successfully ticket#" + supportTicket.getTicketID() + ".pdf", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(mContext, "Couldn't Delete ticket#" + supportTicket.getTicketID() + ".pdf", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

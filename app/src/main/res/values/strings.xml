@@ -7,6 +7,8 @@
     <string name="description_imageView_support_ticket_logo" translatable="false">Support Ticket Logo</string>
     <string name="description_imageView_new_ticket_icon" translatable="false">New Ticket Icon</string>
     <string name="description_imageView_pdf_file_icon" translatable="false">PDF File Icon</string>
+    <string name="description_imageView_delete_file_icon" translatable="false">Delete File Icon</string>
+    <string name="description_imageView_email_file_icon" translatable="false">Email File Icon</string>
 
     <!-- Buttons -->
     <string name="button_new_ticket">New Ticket</string>

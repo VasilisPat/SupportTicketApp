@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.File;
 import java.util.List;
 
-public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAdapter.ViewHolder> {
+public class SupportTicketsRecylerAdapter extends RecyclerView.Adapter<SupportTicketsRecylerAdapter.ViewHolder> {
 
     private final Context mContext;
     private final LayoutInflater inflater;
@@ -26,7 +26,7 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
         void onItemClick(SupportTicket item);
     }
 
-    public SupportTicketsAdapter(Context context, List<SupportTicket> list, OnItemClickListener listener) {
+    public SupportTicketsRecylerAdapter(Context context, List<SupportTicket> list, OnItemClickListener listener) {
         inflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mSupportTicketList = list;
@@ -35,14 +35,14 @@ public class SupportTicketsAdapter extends RecyclerView.Adapter<SupportTicketsAd
 
     @NonNull
     @Override
-    public SupportTicketsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SupportTicketsRecylerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_item_support_ticket, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SupportTicketsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SupportTicketsRecylerAdapter.ViewHolder holder, int position) {
         holder.bind(mSupportTicketList.get(position), itemClickListener);
     }
 

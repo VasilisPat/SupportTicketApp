@@ -27,7 +27,7 @@ public class ViewTicketsActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     private List<SupportTicket> supportTicketList = new ArrayList<>();
     private RecyclerView ticketsRecyclerView;
-    private SupportTicketsAdapter supportTicketsRecyclerAdapter;
+    private SupportTicketsRecylerAdapter supportTicketsRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class ViewTicketsActivity extends AppCompatActivity {
         ticketsRecyclerView.setLayoutManager(layoutManager);
         ticketsRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        supportTicketsRecyclerAdapter = new SupportTicketsAdapter(this, supportTicketList,
-                new SupportTicketsAdapter.OnItemClickListener() {
+        supportTicketsRecyclerAdapter = new SupportTicketsRecylerAdapter(this, supportTicketList,
+                new SupportTicketsRecylerAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(SupportTicket item) {
                         File pdfFile = new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + item.getTicketID() + ".pdf");

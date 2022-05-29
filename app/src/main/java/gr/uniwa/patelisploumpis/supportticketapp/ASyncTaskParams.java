@@ -2,12 +2,12 @@ package gr.uniwa.patelisploumpis.supportticketapp;
 
 import android.content.Context;
 
-public class ATaskParams {
+public class ASyncTaskParams {
 
     private Context mAppContext;
     private String mTicketID;
 
-    public ATaskParams(Context appContext, String ticketID) {
+    public ASyncTaskParams(Context appContext, String ticketID) {
         this.mAppContext = appContext;
         this.mTicketID = ticketID;
     }

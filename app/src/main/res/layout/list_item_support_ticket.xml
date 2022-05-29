@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
     android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp" >
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/layout_background_list_item">
 
     <ImageView
         android:id="@+id/imageView_pdf_file_icon"
@@ -22,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_support_ticket_number"
+        android:textColor="@color/blue_gray_800"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView_pdf_file_icon"

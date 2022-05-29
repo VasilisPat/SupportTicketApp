@@ -16,6 +16,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.text.SimpleDateFormat;
 
 public class NewTicketActivity extends AppCompatActivity {
@@ -30,6 +32,8 @@ public class NewTicketActivity extends AppCompatActivity {
     private String ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
             laborType, laborDescription;
     private SupportTicket supportTicket;
+    private TextInputLayout technicianNameTextInputLayout, clientNameTextInputLayout, clientAddressTextInputLayout, clientPhoneTextInputLayout,
+            clientEmailTextInputLayout, laborHoursTextInputLayout, laborTypeTextInputLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +53,16 @@ public class NewTicketActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.button_cancel_ticket);
         saveButton = findViewById(R.id.button_save_ticket);
 
+        technicianNameTextInputLayout = findViewById(R.id.textInputLayout_autocompleteTextView_technician_name);
+        clientNameTextInputLayout = findViewById(R.id.textInputLayout_client_name);
+        clientAddressTextInputLayout = findViewById(R.id.textInputLayout_client_address);
+        clientPhoneTextInputLayout = findViewById(R.id.textInputLayout_client_phone);
+        clientEmailTextInputLayout = findViewById(R.id.textInputLayout_client_email);
+        laborTypeTextInputLayout = findViewById(R.id.textInputLayout_autocompleteTextView_labor_type);
+        laborHoursTextInputLayout = findViewById(R.id.textInputLayout_labor_hours);
+
         // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.primaryLightColor)));
-
-        // TODO 1.1 Fix Empty String Checking
-        // TODO 1.2 Fix UI MisLoc on API>27
 
         handler.post(new Runnable() {
             @Override
@@ -98,7 +107,11 @@ public class NewTicketActivity extends AppCompatActivity {
                 clientPhone= clientPhoneEditText.getText().toString();
                 clientEmail = clientEmailEditText.getText().toString();
                 laborDate= laborDateEditText.getText().toString();
-                laborHours = Integer.parseInt(laborHoursEditText.getText().toString());
+                if(!TextUtils.isEmpty(laborHoursEditText.getText().toString())){
+                    laborHours = Integer.parseInt(laborHoursEditText.getText().toString());
+                }else{
+                    laborHours = 0;
+                }
                 laborDescription= laborDescriptionEditText.getText().toString();
 
                 if(checkRequiredEditText()){
@@ -115,7 +128,7 @@ public class NewTicketActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Void unused) {
                             new PDFGenerator().execute(new ASyncTaskParams(getApplicationContext(), supportTicket.getTicketID()));
-                            //TODO 3.1 Email to all
+                            //TODO 1.3 Email to all
                         }
                     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 
@@ -137,24 +150,32 @@ public class NewTicketActivity extends AppCompatActivity {
 
     private boolean checkRequiredEditText(){
         boolean checkFlag = true;
+        if(TextUtils.isEmpty(technicianName)){
+            technicianNameTextInputLayout.setError("Technician Selection Required");
+            checkFlag = false;
+        }
         if(TextUtils.isEmpty(clientName)){
-            clientNameEditText.setError("Client Name Required");
+            clientNameTextInputLayout.setError("Client Name Required");
             checkFlag = false;
         }
         if(TextUtils.isEmpty(clientAddress)){
-            clientAddressEditText.setError("Client Address Required");
+            clientAddressTextInputLayout.setError("Client Address Required");
             checkFlag = false;
         }
         if(TextUtils.isEmpty(clientPhone)){
-            clientPhoneEditText.setError("Client Phone Required");
+            clientPhoneTextInputLayout.setError("Client Phone Required");
             checkFlag = false;
         }
         if(TextUtils.isEmpty(clientEmail)){
-            clientEmailEditText.setError("Client Email Required");
+            clientEmailTextInputLayout.setError("Client Email Required");
             checkFlag = false;
         }
-        if(TextUtils.isEmpty(String.valueOf(laborHours))){
-            laborHoursEditText.setError("Labor Hours Required");
+        if(TextUtils.isEmpty(laborType)){
+            laborTypeTextInputLayout.setError("Technician Selection Required");
+            checkFlag = false;
+        }
+        if(TextUtils.equals(String.valueOf(laborHours),String.valueOf(0))){
+            laborHoursTextInputLayout.setError("Labor Hours Required");
             checkFlag = false;
         }
         return checkFlag;

@@ -13,16 +13,16 @@ public class SupportTicket implements Parcelable {
     }
 
     public SupportTicket(int laborHours, String ticketID, String technicianName, String clientName, String clientAddress, String clientPhone, String clientEmail, String laborDate, String laborType, String laborDescription) {
-        this.mLaborHours = laborHours;
-        this.mTicketID = ticketID;
-        this.mTechnicianName = technicianName;
-        this.mClientName = clientName;
-        this.mClientAddress = clientAddress;
-        this.mClientPhone = clientPhone;
-        this.mClientEmail = clientEmail;
-        this.mLaborDate = laborDate;
-        this.mLaborType = laborType;
-        this.mLaborDescription = laborDescription;
+        mLaborHours = laborHours;
+        mTicketID = ticketID;
+        mTechnicianName = technicianName;
+        mClientName = clientName;
+        mClientAddress = clientAddress;
+        mClientPhone = clientPhone;
+        mClientEmail = clientEmail;
+        mLaborDate = laborDate;
+        mLaborType = laborType;
+        mLaborDescription = laborDescription;
     }
 
     //Getters
@@ -47,25 +47,25 @@ public class SupportTicket implements Parcelable {
     public String getLaborDescription() { return mLaborDescription; }
 
     //Setters
-    public void setLaborHours(int laborHours) { this.mLaborHours = laborHours; }
+    public void setLaborHours(int laborHours) { mLaborHours = laborHours; }
 
-    public void setTicketID(String ticketID) { this.mTicketID = ticketID; }
+    public void setTicketID(String ticketID) { mTicketID = ticketID; }
 
-    public void setTechnicianName(String technicianName) { this.mTechnicianName = technicianName; }
+    public void setTechnicianName(String technicianName) { mTechnicianName = technicianName; }
 
-    public void setClientName(String clientName) { this.mClientName = clientName; }
+    public void setClientName(String clientName) { mClientName = clientName; }
 
-    public void setClientAddress(String clientAddress) { this.mClientAddress = clientAddress; }
+    public void setClientAddress(String clientAddress) { mClientAddress = clientAddress; }
 
-    public void setClientPhone(String clientPhone) { this.mClientPhone = clientPhone; }
+    public void setClientPhone(String clientPhone) { mClientPhone = clientPhone; }
 
-    public void setClientEmail(String clientEmail) { this.mClientEmail = clientEmail; }
+    public void setClientEmail(String clientEmail) { mClientEmail = clientEmail; }
 
-    public void setLaborDate(String laborDate) { this.mLaborDate = laborDate; }
+    public void setLaborDate(String laborDate) { mLaborDate = laborDate; }
 
-    public void setLaborType(String laborType) { this.mLaborType = laborType; }
+    public void setLaborType(String laborType) { mLaborType = laborType; }
 
-    public void setLaborDescription(String laborDescription) { this.mLaborDescription = laborDescription; }
+    public void setLaborDescription(String laborDescription) { mLaborDescription = laborDescription; }
 
     @Override
     public int describeContents() {
@@ -73,29 +73,29 @@ public class SupportTicket implements Parcelable {
     }
 
     protected SupportTicket(Parcel in) {
-        this.mLaborHours = in.readInt();
-        this.mTicketID = in.readString();
-        this.mTechnicianName = in.readString();
-        this.mClientName = in.readString();
-        this.mClientAddress = in.readString();
-        this.mClientPhone = in.readString();
-        this.mClientEmail = in.readString();
-        this.mLaborDate = in.readString();
-        this.mLaborType = in.readString();
-        this.mLaborDescription = in.readString();
+        mLaborHours = in.readInt();
+        mTicketID = in.readString();
+        mTechnicianName = in.readString();
+        mClientName = in.readString();
+        mClientAddress = in.readString();
+        mClientPhone = in.readString();
+        mClientEmail = in.readString();
+        mLaborDate = in.readString();
+        mLaborType = in.readString();
+        mLaborDescription = in.readString();
     }
 
     public void readFromParcel(Parcel source) {
-        this.mLaborHours = source.readInt();
-        this.mTicketID = source.readString();
-        this.mTechnicianName = source.readString();
-        this.mClientName = source.readString();
-        this.mClientAddress = source.readString();
-        this.mClientPhone = source.readString();
-        this.mClientEmail = source.readString();
-        this.mLaborDate = source.readString();
-        this.mLaborType = source.readString();
-        this.mLaborDescription = source.readString();
+        mLaborHours = source.readInt();
+        mTicketID = source.readString();
+        mTechnicianName = source.readString();
+        mClientName = source.readString();
+        mClientAddress = source.readString();
+        mClientPhone = source.readString();
+        mClientEmail = source.readString();
+        mLaborDate = source.readString();
+        mLaborType = source.readString();
+        mLaborDescription = source.readString();
     }
 
     @Override

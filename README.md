@@ -1,5 +1,5 @@
 <p align="center">  
-    <img alt="AppIcon" src="/app/src/main/res/drawable/ticket.png"/>
+    <img alt="AppIcon" src="/app/src/main/res/drawable/ticket_186px.png"/>
 </p>
 
 # SupportTicketApp

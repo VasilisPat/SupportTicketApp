@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table Name
     private static final String TABLE_TICKETS = "support_tickets";
+    private static final String TABLE_TECHNICIANS = "technicians";
 
     // Table Columns
     private static final String KEY_TICKET_ID = "ticketID";
@@ -65,13 +66,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 KEY_LABOR_DESCRIPTION + " TEXT" +
                 ")";
 
+        String CREATE_TECHNICIANS_TABLE = "CREATE TABLE " + TABLE_TECHNICIANS + "(" +
+                KEY_TECHNICIAN_NAME+ " TEXT PRIMARY KEY NOT NULL" +
+                ")";
+
         sqLiteDatabase.execSQL(CREATE_TICKETS_TABLE);
+        sqLiteDatabase.execSQL(CREATE_TECHNICIANS_TABLE);
+
+        String[] defaultTechnicians = {"Vasilis Patelis","Loukas Ploumpis","Technician #3"};
+        for (String technician : defaultTechnicians){
+            ContentValues cValues = new ContentValues();
+            cValues.put(KEY_TECHNICIAN_NAME, technician);
+            sqLiteDatabase.insert(TABLE_TECHNICIANS, null, cValues);
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         if(oldVersion != newVersion){
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TICKETS);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TECHNICIANS);
             onCreate(sqLiteDatabase);
         }
     }
@@ -101,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Retrieve all SupportTickets stored in DB
+    // Retrieve all SupportTicket entries stored in DB
     @SuppressLint("Range") // Suppress error "value must be >0" for get column index
     public List<SupportTicket> getAllTickets() {
         List<SupportTicket> supportTicketList = new ArrayList<>();
@@ -225,6 +239,64 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }catch(SQLiteException e){
             e.printStackTrace();
             Log.d("ERROR", "Error while trying to delete ticket from database");
+        }finally {
+            sqLiteDatabaseW.endTransaction();
+        }
+    }
+
+    // Add new Technician entry to DB
+    public void addTechnician(Technician technician) {
+        sqLiteDatabaseW.beginTransaction();
+        try{
+            ContentValues cValues = new ContentValues();
+            cValues.put(KEY_TECHNICIAN_NAME, technician.getName());
+            sqLiteDatabaseW.insertOrThrow(TABLE_TECHNICIANS, null, cValues);
+            sqLiteDatabaseW.setTransactionSuccessful();
+        }catch(SQLiteException e){
+            e.printStackTrace();
+            Log.d("ERROR", "Error while trying to add technician to database");
+        }finally{
+            sqLiteDatabaseW.endTransaction();
+        }
+    }
+
+    // Retrieve all Technician entries stored in DB
+    @SuppressLint("Range")
+    public List<Technician> getAllTechnicians() {
+        List<Technician> technicianList = new ArrayList<>();
+        String ALL_TECHNICIANS_SELECT_QUERY = String.format("SELECT * FROM %s", TABLE_TECHNICIANS);
+        cursor = sqLiteDatabaseR.rawQuery(ALL_TECHNICIANS_SELECT_QUERY, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    Technician technician = new Technician();
+                    technician.setName(cursor.getString(cursor.getColumnIndex(KEY_TECHNICIAN_NAME)));
+                    technicianList.add(technician);
+                } while (cursor.moveToNext());
+            }
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+            Log.d("ERROR", "Error while trying to retrieve technicians list from database");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return technicianList;
+    }
+
+    // Delete Technician entry from DB
+    public void deleteTechnician(String technicianName) {
+        String DELETE_TECHNICIAN_QUERY = String.format("DELETE FROM %s WHERE %s = %s", TABLE_TECHNICIANS, KEY_TECHNICIAN_NAME, technicianName);
+        sqLiteDatabaseW.beginTransaction();
+        try{
+            sqLiteDatabaseW.execSQL(DELETE_TECHNICIAN_QUERY);
+            sqLiteDatabaseW.setTransactionSuccessful();
+        }catch(SQLiteException e){
+            e.printStackTrace();
+            Log.d("ERROR", "Error while trying to delete technician from database");
         }finally {
             sqLiteDatabaseW.endTransaction();
         }

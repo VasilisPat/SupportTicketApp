@@ -9,6 +9,7 @@
     <string name="description_imageView_pdf_file_icon" translatable="false">PDF File Icon</string>
     <string name="description_imageView_delete_file_icon" translatable="false">Delete File Icon</string>
     <string name="description_imageView_email_file_icon" translatable="false">Email File Icon</string>
+    <string name="description_menu_technicians">Technicians List</string>
 
     <!-- Buttons -->
     <string name="button_new_ticket">New Ticket</string>

@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -34,8 +33,6 @@ public class NewTicketActivity extends AppCompatActivity {
     private AsyncTask aSyncTask;
     private AutoCompleteTextView technicianNameAutocompleteTextView, laborTypeAutocompleteTextView;
     private Button cancelButton, saveButton;
-    private EditText ticketIDEditText, clientNameEditText, clientAddressEditText,
-            clientPhoneEditText, clientEmailEditText, laborDateEditText, laborHoursEditText, laborDescriptionEditText;
     private final Handler handler = new Handler();
     private int laborHours;
     private List<Technician> techniciansList = new ArrayList<>();
@@ -43,34 +40,28 @@ public class NewTicketActivity extends AppCompatActivity {
     private String ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
             laborType, laborDescription;
     private SupportTicket supportTicket;
-    private TextInputLayout technicianNameTextInputLayout, clientNameTextInputLayout, clientAddressTextInputLayout, clientPhoneTextInputLayout,
-            clientEmailTextInputLayout, laborHoursTextInputLayout, laborTypeTextInputLayout;
+    private TextInputLayout ticketIDTextInputLayout, technicianNameTextInputLayout, clientNameTextInputLayout, clientAddressTextInputLayout, clientPhoneTextInputLayout,
+            clientEmailTextInputLayout, laborDateTextInputLayout, laborHoursTextInputLayout, laborTypeTextInputLayout, laborDescriptionTextInputLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ticket);
 
-        ticketIDEditText = findViewById(R.id.editText_ticket_id);
-        technicianNameAutocompleteTextView = findViewById(R.id.autocompleteTextView_technician_name);
-        clientNameEditText = findViewById(R.id.editText_client_name);
-        clientAddressEditText = findViewById(R.id.editText_client_address);
-        clientPhoneEditText = findViewById(R.id.editText_client_phone);
-        clientEmailEditText = findViewById(R.id.editText_client_email);
-        laborDateEditText = findViewById(R.id.editText_labor_date);
-        laborTypeAutocompleteTextView = findViewById(R.id.autocompleteTextView_labor_type);
-        laborHoursEditText = findViewById(R.id.editText_labor_hours);
-        laborDescriptionEditText = findViewById(R.id.editText_labor_description);
-        cancelButton = findViewById(R.id.button_cancel_ticket);
-        saveButton = findViewById(R.id.button_save_ticket);
-
+        ticketIDTextInputLayout = findViewById(R.id.textInputLayout_ticket_id);
         technicianNameTextInputLayout = findViewById(R.id.textInputLayout_autocompleteTextView_technician_name);
+        technicianNameAutocompleteTextView = findViewById(R.id.autocompleteTextView_technician_name);
         clientNameTextInputLayout = findViewById(R.id.textInputLayout_client_name);
         clientAddressTextInputLayout = findViewById(R.id.textInputLayout_client_address);
         clientPhoneTextInputLayout = findViewById(R.id.textInputLayout_client_phone);
         clientEmailTextInputLayout = findViewById(R.id.textInputLayout_client_email);
+        laborDateTextInputLayout = findViewById(R.id.textInputLayout_labor_date);
         laborTypeTextInputLayout = findViewById(R.id.textInputLayout_autocompleteTextView_labor_type);
+        laborTypeAutocompleteTextView = findViewById(R.id.autocompleteTextView_labor_type);
         laborHoursTextInputLayout = findViewById(R.id.textInputLayout_labor_hours);
+        laborDescriptionTextInputLayout = findViewById(R.id.textInputLayout_labor_description);
+        cancelButton = findViewById(R.id.button_cancel_ticket);
+        saveButton = findViewById(R.id.button_save_ticket);
 
         // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.primaryLightColor)));
@@ -79,7 +70,7 @@ public class NewTicketActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Set last support ticket number
-                ticketIDEditText.setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
+                ticketIDTextInputLayout.getEditText().setText(String.valueOf(DatabaseHelper.getInstance(getApplicationContext()).getLastTicketID() + 1));
             }
         });
 
@@ -117,23 +108,23 @@ public class NewTicketActivity extends AppCompatActivity {
 
         // Set current date
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        laborDateEditText.setText(sdf.format(Calendar.getInstance().getTime()));
+        laborDateTextInputLayout.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ticketID = ticketIDEditText.getText().toString();
-                clientName= clientNameEditText.getText().toString();
-                clientAddress= clientAddressEditText.getText().toString();
-                clientPhone= clientPhoneEditText.getText().toString();
-                clientEmail = clientEmailEditText.getText().toString();
-                laborDate= laborDateEditText.getText().toString();
-                if(!TextUtils.isEmpty(laborHoursEditText.getText().toString())){
-                    laborHours = Integer.parseInt(laborHoursEditText.getText().toString());
+                ticketID = ticketIDTextInputLayout.getEditText().getText().toString();
+                clientName= clientNameTextInputLayout.getEditText().getText().toString();
+                clientAddress= clientAddressTextInputLayout.getEditText().getText().toString();
+                clientPhone= clientPhoneTextInputLayout.getEditText().getText().toString();
+                clientEmail = clientEmailTextInputLayout.getEditText().getText().toString();
+                laborDate = laborDateTextInputLayout.getEditText().getText().toString();
+                if(!TextUtils.isEmpty(laborHoursTextInputLayout.getEditText().getText().toString())){
+                    laborHours = Integer.parseInt(laborHoursTextInputLayout.getEditText().getText().toString());
                 }else{
                     laborHours = 0;
                 }
-                laborDescription= laborDescriptionEditText.getText().toString();
+                laborDescription = laborDescriptionTextInputLayout.getEditText().getText().toString();
 
                 if(checkRequiredEditText()){
                     supportTicket = new SupportTicket(laborHours, ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail,

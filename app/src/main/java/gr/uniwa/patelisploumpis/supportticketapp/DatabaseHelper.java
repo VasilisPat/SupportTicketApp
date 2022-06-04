@@ -108,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cValues.put(KEY_LABOR_HOURS, supportTicket.getLaborHours());
             cValues.put(KEY_LABOR_DESCRIPTION, supportTicket.getLaborDescription());
 
-            sqLiteDatabaseW.insertOrThrow(TABLE_TICKETS, null, cValues);
+            sqLiteDatabaseW.insert(TABLE_TICKETS, null, cValues);
             sqLiteDatabaseW.setTransactionSuccessful();
         }catch(SQLiteException e){
             e.printStackTrace();

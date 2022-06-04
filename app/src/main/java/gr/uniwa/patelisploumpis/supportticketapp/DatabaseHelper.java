@@ -292,7 +292,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Delete Technician entry from DB
     public void deleteTechnician(String technicianName) {
-        String DELETE_TECHNICIAN_QUERY = String.format("DELETE FROM %s WHERE %s = %s", TABLE_TECHNICIANS, KEY_TECHNICIAN_NAME, technicianName);
+        String DELETE_TECHNICIAN_QUERY = String.format("DELETE FROM %s WHERE %s = \"%s\"", TABLE_TECHNICIANS, KEY_TECHNICIAN_NAME, technicianName);
         sqLiteDatabaseW.beginTransaction();
         try{
             sqLiteDatabaseW.execSQL(DELETE_TECHNICIAN_QUERY);

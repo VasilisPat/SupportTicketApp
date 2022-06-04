@@ -16,7 +16,9 @@
     <!-- Buttons -->
     <string name="button_new_ticket">New Ticket</string>
     <string name="button_view_tickets">View Tickets</string>
-    <string name="button_cancel_ticket">Cancel</string>
+    <string name="button_add">Add</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
 
     <!-- Labels for TextView -->
     <string name="label_technician"><u>Technician</u></string>
@@ -36,6 +38,5 @@
     <string name="hint_labor_hours">Labor Hours</string>
     <string name="hint_labor_type">Labor Type</string>
     <string name="hint_labor_description">Labor Description</string>
-    <string name="button_save_ticket">Save</string>
     <string name="label_labor"><u>Labor</u></string>
 </resources>

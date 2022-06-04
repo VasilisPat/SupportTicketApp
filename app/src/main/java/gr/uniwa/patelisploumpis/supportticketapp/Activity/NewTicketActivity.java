@@ -19,10 +19,13 @@ import android.widget.EditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import gr.uniwa.patelisploumpis.supportticketapp.DatabaseHelper;
 import gr.uniwa.patelisploumpis.supportticketapp.Model.ASyncTaskParams;
 import gr.uniwa.patelisploumpis.supportticketapp.Model.SupportTicket;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.Technician;
 import gr.uniwa.patelisploumpis.supportticketapp.Task.PDFGenerator;
 import gr.uniwa.patelisploumpis.supportticketapp.R;
 
@@ -35,6 +38,8 @@ public class NewTicketActivity extends AppCompatActivity {
             clientPhoneEditText, clientEmailEditText, laborDateEditText, laborHoursEditText, laborDescriptionEditText;
     private final Handler handler = new Handler();
     private int laborHours;
+    private List<Technician> techniciansList = new ArrayList<>();
+    private List<String> techniciansNamesList = new ArrayList<>();
     private String ticketID, technicianName, clientName, clientAddress, clientPhone, clientEmail, laborDate,
             laborType, laborDescription;
     private SupportTicket supportTicket;
@@ -78,9 +83,19 @@ public class NewTicketActivity extends AppCompatActivity {
             }
         });
 
-        // Fill technician name autocompleteTextView with options
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.technician_names,  android.R.layout.simple_dropdown_item_1line);
-        technicianNameAutocompleteTextView.setAdapter(adapter1);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                // Retrieve techniciansList from DB
+                techniciansList = DatabaseHelper.getInstance(getApplicationContext()).getAllTechnicians();
+                for (Technician technician : techniciansList){
+                    techniciansNamesList.add(technician.getName());
+                }
+                // Fill technician name autocompleteTextView with options
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, techniciansNamesList);
+                technicianNameAutocompleteTextView.setAdapter(adapter1);
+            }
+        });
 
         // Technician name autocompleteTextView item selection listener
         technicianNameAutocompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -4,9 +4,5 @@
     <item android:id="@+id/menu_technicians"
         android:title="@string/description_menu_technicians"
         android:icon="@drawable/technician_24px"
-        app:showAsAction="ifRoom"/>
-    <item android:id="@+id/menu_exit"
-        android:title="@string/description_menu_exit"
-        android:icon="@drawable/ic_baseline_exit_to_app_24"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 </menu>

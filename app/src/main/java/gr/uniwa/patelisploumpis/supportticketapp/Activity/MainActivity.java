@@ -33,13 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_technicians:
-                Intent intent = new Intent(this, ViewTechniciansActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.menu_exit:
-                finish();
+        if(item.getItemId()==R.id.menu_technicians) {
+            Intent intent = new Intent(this, ViewTechniciansActivity.class);
+            startActivity(intent);
         }
         return true;
     }

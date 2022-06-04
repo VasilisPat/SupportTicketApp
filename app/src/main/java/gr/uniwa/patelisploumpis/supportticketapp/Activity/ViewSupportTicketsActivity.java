@@ -31,7 +31,7 @@ public class ViewSupportTicketsActivity extends AppCompatActivity {
     private final Handler handler = new Handler();
     private LinearLayoutManager layoutManager;
     private List<SupportTicket> supportTicketList = new ArrayList<>();
-    private RecyclerView ticketsRecyclerView;
+    private RecyclerView supportTicketsRecyclerView;
     private SupportTicketsRecyclerAdapter supportTicketsRecyclerAdapter;
 
     @Override
@@ -42,13 +42,13 @@ public class ViewSupportTicketsActivity extends AppCompatActivity {
         // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.indigo_600)));
 
-        ticketsRecyclerView = findViewById(R.id.recyclerView_support_tickets);
+        supportTicketsRecyclerView = findViewById(R.id.recyclerView_support_tickets);
 
         layoutManager = new LinearLayoutManager(getApplicationContext());
-        dividerItemDecoration = new DividerItemDecoration(ticketsRecyclerView.getContext(), layoutManager.getOrientation());
+        dividerItemDecoration = new DividerItemDecoration(supportTicketsRecyclerView.getContext(), layoutManager.getOrientation());
 
-        ticketsRecyclerView.setLayoutManager(layoutManager);
-        ticketsRecyclerView.addItemDecoration(dividerItemDecoration);
+        supportTicketsRecyclerView.setLayoutManager(layoutManager);
+        supportTicketsRecyclerView.addItemDecoration(dividerItemDecoration);
 
         supportTicketsRecyclerAdapter = new SupportTicketsRecyclerAdapter(this, supportTicketList,
                 new SupportTicketsRecyclerAdapter.OnItemClickListener() {
@@ -71,7 +71,7 @@ public class ViewSupportTicketsActivity extends AppCompatActivity {
                         }
                     }
                 });
-        ticketsRecyclerView.setAdapter(supportTicketsRecyclerAdapter);
+        supportTicketsRecyclerView.setAdapter(supportTicketsRecyclerAdapter);
 
         handler.post(new Runnable() {
             @Override

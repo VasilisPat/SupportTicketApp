@@ -12,6 +12,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import gr.uniwa.patelisploumpis.supportticketapp.Model.SupportTicket;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.Technician;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static Cursor cursor;

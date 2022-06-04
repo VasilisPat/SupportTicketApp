@@ -8,6 +8,8 @@
     <color name="secondaryDarkColor">#00227b</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="ticket_yellow">#F5A91B</color>
+    <color name="ticket_blue">#2A98BD</color>
     <color name="blue_gray_600">#546E7A</color>
     <color name="blue_gray_800">#37474F</color>
     <color name="gray_900">#212121</color>

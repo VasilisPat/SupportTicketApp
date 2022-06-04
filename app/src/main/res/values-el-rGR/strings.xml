@@ -20,5 +20,5 @@
     <string name="hint_labor_type">Είδος Εργασίας</string>
     <string name="hint_labor_description">Περιγραφή Εργασίας</string>
     <string name="description_menu_technicians">Λίστα Τεχνικών</string>
-    <string name="description_menu_technicians">Λ</string>
+    <string name="description_menu_exit">Έξοδος</string>
 </resources>

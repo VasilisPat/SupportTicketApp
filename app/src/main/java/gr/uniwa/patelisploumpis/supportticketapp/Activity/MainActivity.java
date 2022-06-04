@@ -1,4 +1,4 @@
-package gr.uniwa.patelisploumpis.supportticketapp;
+package gr.uniwa.patelisploumpis.supportticketapp.Activity;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -12,14 +12,37 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import gr.uniwa.patelisploumpis.supportticketapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button newTicketButton, viewTicketsButton;
     private static final int PERMISSION_REQUEST_CODE = 200;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_main,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_technicians:
+                Intent intent = new Intent(this, ViewTechniciansActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menu_exit:
+                finish();
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         viewTicketsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ViewTicketsActivity.class);
+                Intent intent = new Intent(MainActivity.this, ViewSupportTicketsActivity.class);
                 startActivity(intent);
             }
         });

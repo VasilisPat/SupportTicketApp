@@ -12,9 +12,12 @@
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/activity_new_ticket.xml" value="0.264" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/activity_new_ticket_v2.xml" value="0.264" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
+        <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/activity_view_technicians.xml" value="0.27447916666666666" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/activity_view_tickets.xml" value="0.27447916666666666" />
+        <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/content_view_technicians.xml" value="0.27447916666666666" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/item.xml" value="0.27447916666666666" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/list_item_support_ticket.xml" value="0.27447916666666666" />
+        <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/layout/list_item_technician.xml" value="0.22521367521367522" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/menu/menu_activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Personal Projects/GitHub/SupportTicketApp/app/src/main/res/xml/paths.xml" value="0.27447916666666666" />
       </map>

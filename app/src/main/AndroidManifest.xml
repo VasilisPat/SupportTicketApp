@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
     <!-- Permission for R/W storage access -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SupportTicketApp">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".Activity.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/SplashScreenStyle">
             <intent-filter>
@@ -23,19 +22,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".NewTicketActivity"
+            android:name=".Activity.NewTicketActivity"
             android:exported="false"
+            android:parentActivityName=".Activity.MainActivity"
             android:theme="@style/NewTicketActivityStyle"
-            android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ViewTicketsActivity"
+            android:name=".Activity.ViewSupportTicketsActivity"
             android:exported="false"
-            android:theme="@style/ViewTicketsActivityStyle"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".Activity.MainActivity"
+            android:theme="@style/ViewSupportTicketsActivityStyle" />
+        <activity
+            android:name=".Activity.ViewTechniciansActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity"
+            android:theme="@style/ViewTechniciansActivityStyle" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -46,7 +50,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
-
     </application>
 
 </manifest>

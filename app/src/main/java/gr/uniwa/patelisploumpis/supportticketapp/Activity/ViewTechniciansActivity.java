@@ -68,7 +68,7 @@ public class ViewTechniciansActivity extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                techniciansList =  DatabaseHelper.getInstance(getApplicationContext()).getAllTechnicians();
+                techniciansList = DatabaseHelper.getInstance(getApplicationContext()).getAllTechnicians();
                 techniciansRecyclerAdapter.updateList(techniciansList);
             }
         });
@@ -76,7 +76,8 @@ public class ViewTechniciansActivity extends AppCompatActivity {
         addTechnicianFloatActionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                addTechnicianFloatActionButton.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_left));
+                addTechnicianFloatActionButton.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce));
+
                 LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_add_technician,null);
                 PopupWindow popupWindow = new PopupWindow(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT, true);
@@ -103,7 +104,6 @@ public class ViewTechniciansActivity extends AppCompatActivity {
                                 }
                             });
                             popupWindow.dismiss();
-                            addTechnicianFloatActionButton.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_right));
                         }
                     }
                 });
@@ -112,7 +112,6 @@ public class ViewTechniciansActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         popupWindow.dismiss();
-                        addTechnicianFloatActionButton.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_right));
                     }
                 });
             }

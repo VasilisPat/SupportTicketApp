@@ -1,4 +1,4 @@
-package gr.uniwa.patelisploumpis.supportticketapp;
+package gr.uniwa.patelisploumpis.supportticketapp.Adapter;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -16,7 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.File;
 import java.util.List;
 
-public class SupportTicketsRecylerAdapter extends RecyclerView.Adapter<SupportTicketsRecylerAdapter.ViewHolder> {
+import gr.uniwa.patelisploumpis.supportticketapp.DatabaseHelper;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.SupportTicket;
+import gr.uniwa.patelisploumpis.supportticketapp.R;
+
+public class SupportTicketsRecyclerAdapter extends RecyclerView.Adapter<SupportTicketsRecyclerAdapter.ViewHolder> {
 
     private final Context mContext;
     private final LayoutInflater inflater;
@@ -27,7 +31,7 @@ public class SupportTicketsRecylerAdapter extends RecyclerView.Adapter<SupportTi
         void onItemClick(SupportTicket item);
     }
 
-    public SupportTicketsRecylerAdapter(Context context, List<SupportTicket> list, OnItemClickListener listener) {
+    public SupportTicketsRecyclerAdapter(Context context, List<SupportTicket> list, OnItemClickListener listener) {
         inflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mSupportTicketList = list;
@@ -36,14 +40,14 @@ public class SupportTicketsRecylerAdapter extends RecyclerView.Adapter<SupportTi
 
     @NonNull
     @Override
-    public SupportTicketsRecylerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SupportTicketsRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_item_support_ticket, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SupportTicketsRecylerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SupportTicketsRecyclerAdapter.ViewHolder holder, int position) {
         holder.bind(mSupportTicketList.get(position), itemClickListener);
     }
 

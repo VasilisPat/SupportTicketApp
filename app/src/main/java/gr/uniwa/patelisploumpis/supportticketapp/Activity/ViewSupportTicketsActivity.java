@@ -1,4 +1,4 @@
-package gr.uniwa.patelisploumpis.supportticketapp;
+package gr.uniwa.patelisploumpis.supportticketapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -20,19 +20,24 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewTicketsActivity extends AppCompatActivity {
+import gr.uniwa.patelisploumpis.supportticketapp.Adapter.SupportTicketsRecyclerAdapter;
+import gr.uniwa.patelisploumpis.supportticketapp.DatabaseHelper;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.SupportTicket;
+import gr.uniwa.patelisploumpis.supportticketapp.R;
+
+public class ViewSupportTicketsActivity extends AppCompatActivity {
 
     private AsyncTask aSyncTask;
     private DividerItemDecoration dividerItemDecoration;
     private LinearLayoutManager layoutManager;
     private List<SupportTicket> supportTicketList = new ArrayList<>();
     private RecyclerView ticketsRecyclerView;
-    private SupportTicketsRecylerAdapter supportTicketsRecyclerAdapter;
+    private SupportTicketsRecyclerAdapter supportTicketsRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_tickets);
+        setContentView(R.layout.activity_view_support_tickets);
 
         // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.indigo_600)));
@@ -45,8 +50,8 @@ public class ViewTicketsActivity extends AppCompatActivity {
         ticketsRecyclerView.setLayoutManager(layoutManager);
         ticketsRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        supportTicketsRecyclerAdapter = new SupportTicketsRecylerAdapter(this, supportTicketList,
-                new SupportTicketsRecylerAdapter.OnItemClickListener() {
+        supportTicketsRecyclerAdapter = new SupportTicketsRecyclerAdapter(this, supportTicketList,
+                new SupportTicketsRecyclerAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(SupportTicket item) {
                         File pdfFile = new File(Environment.getExternalStorageDirectory() + "/SupportTickets", "ticket#" + item.getTicketID() + ".pdf");

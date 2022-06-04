@@ -1,4 +1,4 @@
-package gr.uniwa.patelisploumpis.supportticketapp;
+package gr.uniwa.patelisploumpis.supportticketapp.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

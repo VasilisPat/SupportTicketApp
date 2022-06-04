@@ -1,4 +1,4 @@
-package gr.uniwa.patelisploumpis.supportticketapp;
+package gr.uniwa.patelisploumpis.supportticketapp.Task;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,6 +17,11 @@ import androidx.core.content.ContextCompat;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import gr.uniwa.patelisploumpis.supportticketapp.DatabaseHelper;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.ASyncTaskParams;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.SupportTicket;
+import gr.uniwa.patelisploumpis.supportticketapp.R;
 
 public class PDFGenerator extends AsyncTask<ASyncTaskParams, Void, Boolean> {
 

@@ -1,4 +1,4 @@
-package gr.uniwa.patelisploumpis.supportticketapp;
+package gr.uniwa.patelisploumpis.supportticketapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +19,12 @@ import android.widget.EditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+
+import gr.uniwa.patelisploumpis.supportticketapp.DatabaseHelper;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.ASyncTaskParams;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.SupportTicket;
+import gr.uniwa.patelisploumpis.supportticketapp.Task.PDFGenerator;
+import gr.uniwa.patelisploumpis.supportticketapp.R;
 
 public class NewTicketActivity extends AppCompatActivity {
 

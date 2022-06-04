@@ -1,7 +1,7 @@
 package gr.uniwa.patelisploumpis.supportticketapp.Adapter;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,9 @@ import gr.uniwa.patelisploumpis.supportticketapp.Model.Technician;
 import gr.uniwa.patelisploumpis.supportticketapp.R;
 
 public class TechniciansRecyclerAdapter extends RecyclerView.Adapter<TechniciansRecyclerAdapter.ViewHolder>{
+
     private final Context mContext;
+    private final Handler handler = new Handler();
     private final LayoutInflater inflater;
     private final List<Technician> mTechnicianList;
     private final TechniciansRecyclerAdapter.OnItemClickListener itemClickListener;
@@ -60,13 +62,12 @@ public class TechniciansRecyclerAdapter extends RecyclerView.Adapter<Technicians
 
     private void deleteItem(Technician technician) {
         mTechnicianList.remove(technician);
-        AsyncTask aSyncTask = new AsyncTask<Void, Void, Void>() {
+        handler.post(new Runnable() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            public void run() {
                 DatabaseHelper.getInstance(mContext.getApplicationContext()).deleteTechnician(technician.getName());
-                return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+        });
         notifyDataSetChanged();
     }
 

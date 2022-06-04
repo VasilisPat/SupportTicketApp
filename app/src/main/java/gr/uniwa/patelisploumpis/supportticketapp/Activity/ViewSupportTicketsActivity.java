@@ -10,9 +10,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -27,8 +27,8 @@ import gr.uniwa.patelisploumpis.supportticketapp.R;
 
 public class ViewSupportTicketsActivity extends AppCompatActivity {
 
-    private AsyncTask aSyncTask;
     private DividerItemDecoration dividerItemDecoration;
+    private final Handler handler = new Handler();
     private LinearLayoutManager layoutManager;
     private List<SupportTicket> supportTicketList = new ArrayList<>();
     private RecyclerView ticketsRecyclerView;
@@ -73,18 +73,13 @@ public class ViewSupportTicketsActivity extends AppCompatActivity {
                 });
         ticketsRecyclerView.setAdapter(supportTicketsRecyclerAdapter);
 
-        aSyncTask = new AsyncTask<Void, Void, List<SupportTicket>>() {
+        handler.post(new Runnable() {
             @Override
-            protected List<SupportTicket> doInBackground(Void... voids) {
+            public void run() {
                 supportTicketList =  DatabaseHelper.getInstance(getApplicationContext()).getAllTickets();
-                return supportTicketList;
-            }
-
-            @Override
-            protected void onPostExecute(List<SupportTicket> supportTicketList) {
                 supportTicketsRecyclerAdapter.updateList(supportTicketList);
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+        });
 
     }
 }

@@ -1,8 +1,8 @@
 package gr.uniwa.patelisploumpis.supportticketapp.Adapter;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +23,7 @@ import gr.uniwa.patelisploumpis.supportticketapp.R;
 public class SupportTicketsRecyclerAdapter extends RecyclerView.Adapter<SupportTicketsRecyclerAdapter.ViewHolder> {
 
     private final Context mContext;
+    private final Handler handler = new Handler();
     private final LayoutInflater inflater;
     private final List<SupportTicket> mSupportTicketList;
     private final OnItemClickListener itemClickListener;
@@ -64,13 +65,12 @@ public class SupportTicketsRecyclerAdapter extends RecyclerView.Adapter<SupportT
 
     private void deleteItem(SupportTicket ticket) {
         mSupportTicketList.remove(ticket);
-        AsyncTask aSyncTask = new AsyncTask<Void, Void, Void>() {
+        handler.post(new Runnable() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            public void run() {
                 DatabaseHelper.getInstance(mContext.getApplicationContext()).deleteSupportTicketByID(ticket.getTicketID());
-                return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+        });
         notifyDataSetChanged();
     }
 

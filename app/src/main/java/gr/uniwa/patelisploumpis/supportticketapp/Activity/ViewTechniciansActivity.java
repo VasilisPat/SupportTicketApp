@@ -1,3 +1,4 @@
+
 package gr.uniwa.patelisploumpis.supportticketapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,8 @@ import gr.uniwa.patelisploumpis.supportticketapp.R;
 
 public class ViewTechniciansActivity extends AppCompatActivity {
 
-    private AsyncTask aSyncTask;
     private DividerItemDecoration dividerItemDecoration;
+    private final Handler handler = new Handler();
     private LinearLayoutManager layoutManager;
     private List<Technician> techniciansList = new ArrayList<>();
     private RecyclerView techniciansRecyclerView;
@@ -51,17 +52,13 @@ public class ViewTechniciansActivity extends AppCompatActivity {
                 });
         techniciansRecyclerView.setAdapter(techniciansRecyclerAdapter);
 
-        aSyncTask = new AsyncTask<Void, Void, List<Technician>>() {
+        handler.post(new Runnable() {
             @Override
-            protected List<Technician> doInBackground(Void... voids) {
+            public void run() {
                 techniciansList =  DatabaseHelper.getInstance(getApplicationContext()).getAllTechnicians();
-                return techniciansList;
-            }
-
-            @Override
-            protected void onPostExecute(List<Technician> techniciansList) {
                 techniciansRecyclerAdapter.updateList(techniciansList);
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
+        });
+
     }
 }

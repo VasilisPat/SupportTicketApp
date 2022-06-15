@@ -17,8 +17,10 @@ import java.io.File;
 import java.util.List;
 
 import gr.uniwa.patelisploumpis.supportticketapp.DatabaseHelper;
+import gr.uniwa.patelisploumpis.supportticketapp.Model.ASyncTaskParams;
 import gr.uniwa.patelisploumpis.supportticketapp.Model.SupportTicket;
 import gr.uniwa.patelisploumpis.supportticketapp.R;
+import gr.uniwa.patelisploumpis.supportticketapp.Task.EmailSender;
 
 public class SupportTicketsRecyclerAdapter extends RecyclerView.Adapter<SupportTicketsRecyclerAdapter.ViewHolder> {
 
@@ -104,7 +106,9 @@ public class SupportTicketsRecyclerAdapter extends RecyclerView.Adapter<SupportT
 
             emailSupportTicketImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) { /*new EmailSender()*/ }
+                public void onClick(View view) {
+                    new EmailSender().execute(new ASyncTaskParams(mContext, supportTicket.getTicketID()));
+                }
             });
 
             deleteSupportTicketImageView.setOnClickListener(new View.OnClickListener() {

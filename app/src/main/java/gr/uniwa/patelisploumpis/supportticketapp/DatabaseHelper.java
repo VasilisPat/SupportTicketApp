@@ -209,29 +209,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return lastTicketID;
     }
 
-        // Retrieve clientEmail on specific SupportTicket by tickedID
-        @SuppressLint("Range")
-        public String getClientEmailByID(String ticketID) {
-            String clientEmail = "";
-            String CLIENT_EMAIL_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);
-            cursor = sqLiteDatabaseR.rawQuery(CLIENT_EMAIL_SELECT_QUERY, null);
-            
-            try{
-                if(cursor.moveToLast()){
-                    clientEmail = cursor.getString(cursor.getColumnIndex(KEY_CLIENT_EMAIL));
-                }
-            }catch(SQLiteException e){
-                e.printStackTrace();
-                Log.d("ERROR", "Error while trying to retrieve client's email from database");
-            }finally{
-                if(cursor != null && !cursor.isClosed()) {
-                    cursor.close();
-                }
-            }
-            
-        return clientEmail;
-    }
-
     // Delete SupportTicket entry from DB
     public void deleteSupportTicketByID(String ticketID) {
         String DELETE_TICKET_QUERY = String.format("DELETE FROM %s WHERE %s = %s", TABLE_TICKETS, KEY_TICKET_ID, ticketID);

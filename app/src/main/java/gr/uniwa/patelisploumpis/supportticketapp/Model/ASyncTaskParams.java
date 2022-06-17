@@ -8,8 +8,8 @@ public class ASyncTaskParams {
     private String mTicketID;
 
     public ASyncTaskParams(Context appContext, String ticketID) {
-        this.mAppContext = appContext;
-        this.mTicketID = ticketID;
+        mAppContext = appContext;
+        mTicketID = ticketID;
     }
 
     // Getters
@@ -17,8 +17,8 @@ public class ASyncTaskParams {
 
     public String getTicketID() { return mTicketID; }
 
-    //Setters
-    public void setAppContext(Context mAppContext) { this.mAppContext = mAppContext; }
+    // Setters
+    public void setAppContext(Context mAppContext) { mAppContext = mAppContext; }
 
-    public void setTicketID(String mTicketID) { this.mTicketID = mTicketID; }
+    public void setTicketID(String mTicketID) { mTicketID = mTicketID; }
 }

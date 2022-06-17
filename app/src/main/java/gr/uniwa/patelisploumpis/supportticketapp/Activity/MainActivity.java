@@ -23,7 +23,7 @@ import gr.uniwa.patelisploumpis.supportticketapp.R;
 public class MainActivity extends AppCompatActivity {
 
     private Button newTicketButton, viewTicketsButton;
-    private static final int PERMISSION_REQUEST_CODE = 200;
+    private final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

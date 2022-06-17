@@ -44,6 +44,10 @@ public class ViewTechniciansActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_technicians);
 
+        // Option to fade background when popup opens
+        ConstraintLayout layoutPopupMenu = findViewById(R.id.view_technicians_constraint_layout);
+        layoutPopupMenu.getForeground().setAlpha(0);
+
         // Colorize action bar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.ticket_yellow)));
 
@@ -82,6 +86,7 @@ public class ViewTechniciansActivity extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_add_technician,null);
                 PopupWindow popupWindow = new PopupWindow(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT, true);
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                layoutPopupMenu.getForeground().setAlpha(120);
 
                 Button addButton = popupView.findViewById(R.id.button_add_technician);
                 Button cancelButton = popupView.findViewById(R.id.button_cancel_popup);
@@ -104,6 +109,7 @@ public class ViewTechniciansActivity extends AppCompatActivity {
                                 }
                             });
                             popupWindow.dismiss();
+                            layoutPopupMenu.getForeground().setAlpha(0);
                         }
                     }
                 });
@@ -112,6 +118,7 @@ public class ViewTechniciansActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         popupWindow.dismiss();
+                        layoutPopupMenu.getForeground().setAlpha(0);
                     }
                 });
             }

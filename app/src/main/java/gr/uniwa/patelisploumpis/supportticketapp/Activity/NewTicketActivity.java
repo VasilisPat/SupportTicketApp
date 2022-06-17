@@ -25,6 +25,7 @@ import gr.uniwa.patelisploumpis.supportticketapp.DatabaseHelper;
 import gr.uniwa.patelisploumpis.supportticketapp.Model.ASyncTaskParams;
 import gr.uniwa.patelisploumpis.supportticketapp.Model.SupportTicket;
 import gr.uniwa.patelisploumpis.supportticketapp.Model.Technician;
+import gr.uniwa.patelisploumpis.supportticketapp.Task.EmailSender;
 import gr.uniwa.patelisploumpis.supportticketapp.Task.PDFGenerator;
 import gr.uniwa.patelisploumpis.supportticketapp.R;
 
@@ -139,8 +140,9 @@ public class NewTicketActivity extends AppCompatActivity {
 
                         @Override
                         protected void onPostExecute(Void unused) {
-                            new PDFGenerator().execute(new ASyncTaskParams(getApplicationContext(), supportTicket.getTicketID()));
-                            //TODO 1.3 Email to all
+                            ASyncTaskParams aSyncTaskParams = new ASyncTaskParams(getApplicationContext(), supportTicket.getTicketID());
+                            new PDFGenerator().execute(aSyncTaskParams);
+                            //znew EmailSender().execute(aSyncTaskParams);
                         }
                     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 

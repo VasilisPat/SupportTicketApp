@@ -17,7 +17,6 @@ public class EmailSender extends AsyncTask<ASyncTaskParams, Void, Intent> {
     private Context mContext;
     private final File storageDir = new File(Environment.getExternalStorageDirectory() + "/SupportTickets");
 
-
     @Override
     protected Intent doInBackground(ASyncTaskParams... params) {
         mContext = params[0].getAppContext();
@@ -42,4 +41,5 @@ public class EmailSender extends AsyncTask<ASyncTaskParams, Void, Intent> {
 
         return intent;
     }
+
 }

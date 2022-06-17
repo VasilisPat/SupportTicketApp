@@ -142,7 +142,7 @@ public class NewTicketActivity extends AppCompatActivity {
                         protected void onPostExecute(Void unused) {
                             ASyncTaskParams aSyncTaskParams = new ASyncTaskParams(getApplicationContext(), supportTicket.getTicketID());
                             new PDFGenerator().execute(aSyncTaskParams);
-                            //znew EmailSender().execute(aSyncTaskParams);
+                            new EmailSender().execute(aSyncTaskParams);
                         }
                     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 

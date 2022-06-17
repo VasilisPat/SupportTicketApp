@@ -25,17 +25,15 @@ import gr.uniwa.patelisploumpis.supportticketapp.R;
 
 public class PDFGenerator extends AsyncTask<ASyncTaskParams, Void, Boolean> {
 
-    private static Bitmap bitmap;
-    private  Context mContext;
-    private static final int PDFPageHeight = 780;
-    private static final int PDFPageWidth = 620;
-    private static final File storageDir = new File(Environment.getExternalStorageDirectory() + "/SupportTickets");
-    private SupportTicket supportTicket;
+    private Context mContext;
+    private final int PDFPageHeight = 780;
+    private final int PDFPageWidth = 620;
+    private final File storageDir = new File(Environment.getExternalStorageDirectory() + "/SupportTickets");
 
     @Override
     protected Boolean doInBackground(ASyncTaskParams... params) {
         mContext = params[0].getAppContext();
-        return generatePDF(params[0].getAppContext(), params[0].getTicketID());
+        return generatePDF(DatabaseHelper.getInstance(mContext).getTicketByID(params[0].getTicketID()));
     }
 
     @Override
@@ -47,15 +45,14 @@ public class PDFGenerator extends AsyncTask<ASyncTaskParams, Void, Boolean> {
         }
     }
 
-    private boolean generatePDF(Context context, String ticketID) {
+    private boolean generatePDF(SupportTicket supportTicket) {
 
         boolean successFlag;
         PdfDocument pdfDocument = new PdfDocument();
         Paint PDFPaint = new Paint();
         Paint PDFTitle = new Paint();
 
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ticket_186px);
-        supportTicket = DatabaseHelper.getInstance(context).getTicketByID(ticketID);
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ticket_186px);
 
         PdfDocument.PageInfo PDFTicketInfo = new PdfDocument.PageInfo.Builder(PDFPageWidth, PDFPageHeight, 1).create();
         PdfDocument.Page PDFTicketPage = pdfDocument.startPage(PDFTicketInfo);
@@ -64,10 +61,10 @@ public class PDFGenerator extends AsyncTask<ASyncTaskParams, Void, Boolean> {
         canvas.drawBitmap(Bitmap.createScaledBitmap(bitmap, 105, 105, false), 56, 40, PDFPaint);
 
         PDFTitle.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-        PDFTitle.setColor(ContextCompat.getColor(context, R.color.primaryDarkColor));
+        PDFTitle.setColor(ContextCompat.getColor(mContext, R.color.primaryDarkColor));
 
         PDFTitle.setTextSize(24);
-        canvas.drawText(context.getResources().getString(R.string.app_name), 220, 80, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.app_name), 220, 80, PDFTitle);
 
         PDFTitle.setTextSize(17);
         canvas.drawText("Easy Support Ticket Generation", 220, 110, PDFTitle);
@@ -75,20 +72,20 @@ public class PDFGenerator extends AsyncTask<ASyncTaskParams, Void, Boolean> {
         PDFTitle.setTextSize(15);
         PDFTitle.setTextAlign(Paint.Align.LEFT);
         PDFTitle.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-        PDFTitle.setColor(ContextCompat.getColor(context, R.color.black));
+        PDFTitle.setColor(ContextCompat.getColor(mContext, R.color.black));
 
-        canvas.drawText(context.getResources().getString(R.string.hint_ticket_id) + ":", 50, 250, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_technician_name) + ":", 50, 275, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_client_name) + ":", 50, 300, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_client_address) + ":", 50, 325, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_client_phone) + ":", 50, 350, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_client_email) + ":", 50, 375, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_labor_date) + ":", 50, 400, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_labor_type) + ":", 50, 425, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_labor_hours) + ":", 50, 450, PDFTitle);
-        canvas.drawText(context.getResources().getString(R.string.hint_labor_description) + ":", 50, 475, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_ticket_id) + ":", 50, 250, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_technician_name) + ":", 50, 275, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_client_name) + ":", 50, 300, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_client_address) + ":", 50, 325, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_client_phone) + ":", 50, 350, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_client_email) + ":", 50, 375, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_labor_date) + ":", 50, 400, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_labor_type) + ":", 50, 425, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_labor_hours) + ":", 50, 450, PDFTitle);
+        canvas.drawText(mContext.getResources().getString(R.string.hint_labor_description) + ":", 50, 475, PDFTitle);
 
-        PDFTitle.setColor(ContextCompat.getColor(context, R.color.blue_gray_800));
+        PDFTitle.setColor(ContextCompat.getColor(mContext, R.color.blue_gray_800));
         canvas.drawText(supportTicket.getTicketID(), 250, 250, PDFTitle);
         canvas.drawText(supportTicket.getTechnicianName(), 250, 275, PDFTitle);
         canvas.drawText(supportTicket.getClientName(), 250, 300, PDFTitle);
@@ -101,8 +98,8 @@ public class PDFGenerator extends AsyncTask<ASyncTaskParams, Void, Boolean> {
         canvas.drawText(supportTicket.getLaborDescription(), 250, 475, PDFTitle);
 
         PDFTitle.setTextAlign(Paint.Align.CENTER);
-        PDFTitle.setColor(ContextCompat.getColor(context, R.color.black));
-        canvas.drawText(context.getResources().getString(R.string.app_info), 320, 740, PDFTitle);
+        PDFTitle.setColor(ContextCompat.getColor(mContext, R.color.black));
+        canvas.drawText(mContext.getResources().getString(R.string.app_info), 320, 740, PDFTitle);
 
         pdfDocument.finishPage(PDFTicketPage);
 

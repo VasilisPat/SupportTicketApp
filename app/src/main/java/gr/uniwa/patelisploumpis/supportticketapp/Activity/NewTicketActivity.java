@@ -145,9 +145,7 @@ public class NewTicketActivity extends AppCompatActivity {
                             new EmailSender().execute(aSyncTaskParams);
                         }
                     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
-
-                    Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    finish();
                 }
 
             }
@@ -156,8 +154,7 @@ public class NewTicketActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NewTicketActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
@@ -185,7 +182,7 @@ public class NewTicketActivity extends AppCompatActivity {
             checkFlag = false;
         }
         if(TextUtils.isEmpty(laborType)){
-            laborTypeTextInputLayout.setError("Technician Selection Required");
+            laborTypeTextInputLayout.setError("Labor Selection Required");
             checkFlag = false;
         }
         if(TextUtils.equals(String.valueOf(laborHours),String.valueOf(0))){

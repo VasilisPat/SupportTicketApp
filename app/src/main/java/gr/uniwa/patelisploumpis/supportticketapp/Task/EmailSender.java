@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 
+import androidx.core.content.FileProvider;
+
 import java.io.File;
 
 import gr.uniwa.patelisploumpis.supportticketapp.DatabaseHelper;
@@ -31,10 +33,11 @@ public class EmailSender extends AsyncTask<ASyncTaskParams, Void, Intent> {
     private Intent composeEmail(SupportTicket supportTicket) {
         String[] emailRecipients = {supportTicket.getClientEmail(), "support@support.com"};
         String emailSubject = "Support Ticket No." + supportTicket.getTicketID() + " -- " + supportTicket.getClientName();
-        File supportTicketFileURI = new File(storageDir.toString(), "ticket#" + supportTicket.getTicketID() + ".pdf");
+        File pdfFile = new File(storageDir.toString(), "ticket#" + supportTicket.getTicketID() + ".pdf");
+        Uri supportTicketFileURI = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", pdfFile);
 
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setData(supportTicketFileURI);
         intent.putExtra(Intent.EXTRA_EMAIL, emailRecipients);
         intent.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
         intent.putExtra(Intent.EXTRA_STREAM, supportTicketFileURI);

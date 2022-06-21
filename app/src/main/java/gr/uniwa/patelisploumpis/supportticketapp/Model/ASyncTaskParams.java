@@ -18,7 +18,7 @@ public class ASyncTaskParams {
     public String getTicketID() { return mTicketID; }
 
     // Setters
-    public void setAppContext(Context mAppContext) { mAppContext = mAppContext; }
+    public void setAppContext(Context appContext) { mAppContext = appContext; }
 
-    public void setTicketID(String mTicketID) { mTicketID = mTicketID; }
+    public void setTicketID(String ticketID) { mTicketID = ticketID; }
 }

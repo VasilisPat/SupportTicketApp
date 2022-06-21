@@ -190,12 +190,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public int getLastTicketID() {
         int lastTicketID = 0;
-        String LAST_TICKET_ID_SELECT_QUERY = String.format("SELECT * FROM %s", TABLE_TICKETS);
+        String LAST_TICKET_ID_SELECT_QUERY = String.format("SELECT seq FROM sqlite_sequence WHERE NAME = \"%s\"", TABLE_TICKETS);
         cursor = sqLiteDatabaseR.rawQuery(LAST_TICKET_ID_SELECT_QUERY, null);
 
         try{
-            if(cursor.moveToLast()){
-                lastTicketID = cursor.getInt(cursor.getColumnIndex(KEY_TICKET_ID));
+            if(cursor.moveToFirst()){
+                lastTicketID = cursor.getInt(cursor.getColumnIndex("seq"));
             }
         }catch(SQLiteException e){
             e.printStackTrace();
